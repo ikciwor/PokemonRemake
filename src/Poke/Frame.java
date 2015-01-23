@@ -2,17 +2,12 @@ package Poke;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.RenderingHints;
 
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 
@@ -123,8 +118,8 @@ public class Frame extends JFrame{
 		add(game);
 
 		gen();
-		//genZmiana();
-		genWybor();
+		genZmiana();
+		//genWybor();
 		
 	}
 	
@@ -154,7 +149,6 @@ public class Frame extends JFrame{
 		
 		wybor.add(go, BorderLayout.SOUTH);
 		go.setBounds(WIDTH/2-30, HEIGHT-90, 60, 20);
-		
 		
 		wybor.add(add, BorderLayout.SOUTH);
 		add.setBounds(WIDTH/4-55, 60, 45, 20);

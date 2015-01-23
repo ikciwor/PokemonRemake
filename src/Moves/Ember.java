@@ -10,7 +10,7 @@ public class Ember extends Move{
 		pow=40;
 		pp=25;
 		ppmax=25;
-		sp=true;
+		special=true;
 		touch=false;
 		type=Type.FIRE;
 		name="EMBER";

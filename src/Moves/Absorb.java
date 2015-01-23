@@ -10,7 +10,7 @@ public class Absorb extends Move{
 		pow=25;
 		acc=100;
 		type=Type.GRASS;
-		sp=true;
+		special=true;
 		touch=true;
 		name="ABSORB";
 		pp=ppmax=25;

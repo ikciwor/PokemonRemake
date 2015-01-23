@@ -2,65 +2,68 @@ package Poke;
 
 import java.util.Random;
 
-import Moves.Move;
-
 public class Battle {
-	
+
 	Random rand = new Random();
 	
-	PokemonBattling[] pokemonBattling =new PokemonBattling[2];
-	Pokemon[][] pokemon = new Pokemon[2][6];
+	Player[] players = new Player[2];
 	
+
+
 	public Weather weather;
+
+
+	public Battle() {
+
+		// for(int i=0; i<2;++i)
+		// {
+		// for(int j=0; j<6;++j)
+		// {
+		// pokemon[i][j]=Pokemon.searchByName((i==0)? Frame.party.getItemAt(j) :
+		// Frame.party2.getItemAt(j));
+		// }
+		// }
+
+
+
+	}
 	
-	int pokemonInBattle; //gdyby były dwa bulbasaury
-	
-	public Battle()
+	void reset()
 	{
-		
-		
-		
-//		for(int i=0; i<2;++i)
-//		{
-//			for(int j=0; j<6;++j)
-//			{
-//				pokemon[i][j]=Pokemon.searchByName((i==0)? Frame.party.getItemAt(j) : Frame.party2.getItemAt(j));
-//			}
-//		}
-		
-		
-		for(int i=0; i<6; ++i)
-		{
-			pokemon[0][i].move[0].pp=pokemon[0][i].move[0].ppmax;
-			pokemon[0][i].move[1].pp=pokemon[0][i].move[1].ppmax;
-			pokemon[0][i].move[2].pp=pokemon[0][i].move[2].ppmax;
-			pokemon[0][i].move[3].pp=pokemon[0][i].move[3].ppmax;
-			
-			pokemon[1][i].move[0].pp=pokemon[0][i].move[0].ppmax;
-			pokemon[1][i].move[1].pp=pokemon[0][i].move[1].ppmax;
-			pokemon[1][i].move[2].pp=pokemon[0][i].move[2].ppmax;
-			pokemon[1][i].move[3].pp=pokemon[0][i].move[3].ppmax; //resetowanie pp
+		for (int i = 0; i < 5; ++i) {
+			for (int j= 0; j<4; ++j) {
+				players[0].pokemon[i].move[j].pp = players[0].pokemon[i].move[j].ppmax;
+				players[1].pokemon[i].move[j].pp = players[1].pokemon[i].move[j].ppmax;
+			}
 		}
-		
-		
 	}
-	
 
-	void turn(int a)
-	{
-		int r=rand.nextInt(4);
-		int order= (pokemonBattling[0].r_spd() > pokemonBattling[1].r_spd()) ? 0 : (pokemonBattling[0].r_spd() == pokemonBattling[1].r_spd())? (int)r : 1;
+	void executeTurn(int a) {
+		int r = rand.nextInt(4);
+		Pokemon pok0 = players[0].pokemonBattling;
 		
-		pokemonBattling[order%2].move[a].doMove();
 		
-		pokemonBattling[(order+1)%2].move[r].doMove(); //bot wybiera losowo
-		
-	}
-	
-	void switchPokemon()
-	{
-		
-	}
-	
+		int order = (players[0].pokemonBattling.resultSpd() > players[1].pokemonBattling.resultSpd()) ? 0
+				: (players[0].pokemonBattling.resultSpd() == players[1].pokemonBattling.resultSpd()) ? (int) r
+						: 1;
 
+		pokemonBattling[order % 2].move[a].doMove(pokemonBattling[order]);
+
+		pokemonBattling[(order + 1) % 2].move[r].doMove(pokemonBattling[1-order]); // bot wybiera losowo
+
+	}
+
+	public void switchPokemon(int id) {
+		// odpalić kontunuuj
+	}
+	
+	public void chooseMove(int id)
+	{
+		// odpalić kontynuuj
+	}
+
+	public void runTurn() {
+		// odpalić turn w nowym wątku
+	}
+	}
 }
