@@ -1,0 +1,24 @@
+package Moves;
+
+import Poke.Type;
+
+public class Tackle extends Move{
+
+	public Tackle()
+		{
+		pow=35;
+		acc=100;
+		type=Type.NORMAL;
+		sp=false;
+		touch=true;
+		name="TACKLE";
+		
+		pp=ppmax=35;
+	}
+	public void doMove()
+	{
+		damage();
+		--pp;
+	}
+
+}
