@@ -1,5 +1,7 @@
 package Moves;
 
+import Poke.PokemonBattling;
+
 public class Growl extends Move{
 	
 	public Growl()
@@ -8,10 +10,9 @@ public class Growl extends Move{
 		pp=ppmax=40;
 	}
 	
-	public void doMove()
+	public void doMove(PokemonBattling target)
 	{
 		victim.m_atk--;
-		--pp;
 	}
 
 }

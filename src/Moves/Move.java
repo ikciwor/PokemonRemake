@@ -48,7 +48,23 @@ public abstract class Move{
 		return critRatio*user.spd/512>=rand.nextInt(100);
 	}
 	
-	public void doMove(PokemonBattling target){}
+	public boolean initMove(PokemonBattling target) //zwraca czy ruch wykonano (z powodu min. pp)
+	{
+		boolean success = (pp>0);
+		
+		if(success)
+		{
+			doMove(target);
+			--pp;
+			return true;
+		}
+		else
+			return false;
+	}
+	
+	abstract void doMove (PokemonBattling target);
+	
+
 	
 	
 

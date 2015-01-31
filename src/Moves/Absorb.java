@@ -1,5 +1,6 @@
 package Moves;
 
+import Poke.PokemonBattling;
 import Poke.Type;
 
 
@@ -17,13 +18,12 @@ public class Absorb extends Move{
 		
 	}
 	
-	public void doMove()
+	public void doMove(PokemonBattling target)
 	{
 		double lastdmg=victim.hp; //strata hp, jednoczenie pamięta ile miał hp przed atakiem
 		damage();
 		lastdmg=lastdmg-victim.hp;
 		user.recover((int)lastdmg/2);
-		--pp;
 	}
 	
 

@@ -1,5 +1,6 @@
 package Moves;
 
+import Poke.PokemonBattling;
 import Poke.Status;
 import Poke.Type;
 
@@ -16,7 +17,7 @@ public class Ember extends Move{
 		name="EMBER";
 	}
 	
-	public void doMove()
+	public void doMove(PokemonBattling target)
 	{
 		damage();
 		if(rand.nextInt(10)==0)

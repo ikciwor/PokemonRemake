@@ -46,9 +46,9 @@ public class Battle {
 				: (players[0].pokemonBattling.resultSpd() == players[1].pokemonBattling.resultSpd()) ? (int) r
 						: 1;
 
-		players[order].pokemonBattling.move[a].doMove(players[order].pokemonBattling);
+		players[order].pokemonBattling.move[a].initMove(players[order].pokemonBattling);
 
-		players[(order+1)%2].pokemonBattling.move[r].doMove(players[(order+1)%2].pokemonBattling); // bot wybiera losowo
+		players[(order+1)%2].pokemonBattling.move[r].initMove(players[(order+1)%2].pokemonBattling); // bot wybiera losowo
 
 	}
 
