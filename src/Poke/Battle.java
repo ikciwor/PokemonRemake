@@ -9,7 +9,6 @@ public class Battle {
 	Player[] players = new Player[2];
 	
 
-
 	public Weather weather;
 
 
@@ -39,7 +38,7 @@ public class Battle {
 	}
 
 	void executeTurn(int a) {
-		int r = rand.nextInt(4);
+		int r = rand.nextInt(2);
 		Pokemon pok0 = players[0].pokemonBattling;
 		
 		
@@ -47,9 +46,9 @@ public class Battle {
 				: (players[0].pokemonBattling.resultSpd() == players[1].pokemonBattling.resultSpd()) ? (int) r
 						: 1;
 
-		pokemonBattling[order % 2].move[a].doMove(pokemonBattling[order]);
+		players[order].pokemonBattling.move[a].doMove(players[order].pokemonBattling);
 
-		pokemonBattling[(order + 1) % 2].move[r].doMove(pokemonBattling[1-order]); // bot wybiera losowo
+		players[(order+1)%2].pokemonBattling.move[r].doMove(players[(order+1)%2].pokemonBattling); // bot wybiera losowo
 
 	}
 
@@ -64,6 +63,5 @@ public class Battle {
 
 	public void runTurn() {
 		// odpalić turn w nowym wątku
-	}
 	}
 }
