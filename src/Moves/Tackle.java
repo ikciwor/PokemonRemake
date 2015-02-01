@@ -18,7 +18,7 @@ public class Tackle extends Move{
 	}
 	public void doMove(PokemonBattling target)
 	{
-		damage();
+		damage(target);
 	}
 
 }

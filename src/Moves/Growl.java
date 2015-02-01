@@ -12,7 +12,7 @@ public class Growl extends Move{
 	
 	public void doMove(PokemonBattling target)
 	{
-		victim.m_atk--;
+		target.modifyMAtk(-1);
 	}
 
 }

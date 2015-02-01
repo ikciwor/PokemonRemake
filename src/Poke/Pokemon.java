@@ -19,21 +19,27 @@ public class Pokemon {
 	public int hp, def, atk, spdef, spatk, spd;
 	public Status status;
 	protected int maxhp;
+	
+	private int badPoison=0;
 
 	Move[] move = new Move[4];
 
 	public void recover(int rec) {
 		hp = (rec + hp >= maxhp) ? maxhp : rec + hp;
 	}
+	
+	public void damage(int dmg) {
+		hp = (hp - dmg > 0) ? hp - dmg : 0;
+	}
 
 	public Pokemon() {
-		maxhp = (iv_hp + spieces.b_hp + (int) Math.sqrt((double) ev_hp) / 8 + 50) * level / 50 + 10;
+		maxhp = (iv_hp + spieces.baseHp + (int) Math.sqrt((double) ev_hp) / 8 + 50) * level / 50 + 10;
 
-		atk = (iv_atk + spieces.b_atk + (int) Math.sqrt((double) ev_atk) / 8) * level / 50 + 5;
-		spatk = (iv_spatk + spieces.b_spatk + (int) Math.sqrt((double) ev_spatk) / 8) * level / 50 + 5;
-		def = (iv_def + spieces.b_def + (int) Math.sqrt((double) ev_def) / 8) * level / 50 + 5;
-		spdef = (iv_spdef + spieces.b_spdef + (int) Math.sqrt((double) ev_spdef) / 8) * level / 50 + 5;
-		spd = (iv_spd + spieces.b_spd + (int) Math.sqrt((double) ev_spd) / 8) * level / 50 + 5; // okrelanie
+		atk = (iv_atk + spieces.baseAtk + (int) Math.sqrt((double) ev_atk) / 8) * level / 50 + 5;
+		spatk = (iv_spatk + spieces.baseSpatk + (int) Math.sqrt((double) ev_spatk) / 8) * level / 50 + 5;
+		def = (iv_def + spieces.baseDef + (int) Math.sqrt((double) ev_def) / 8) * level / 50 + 5;
+		spdef = (iv_spdef + spieces.baseSpdef + (int) Math.sqrt((double) ev_spdef) / 8) * level / 50 + 5;
+		spd = (iv_spd + spieces.baseSpd + (int) Math.sqrt((double) ev_spd) / 8) * level / 50 + 5; // okrelanie
 																								// statów
 	}
 	
@@ -41,5 +47,20 @@ public class Pokemon {
 	{
 		return hp<=0;
 	}
+	
+	public void doPoison()
+	{
+		if(badPoison==0)
+		{
+			damage((int)(maxhp/8));
+		}
+		else
+		{
+			damage((int)(maxhp*badPoison/16));
+		}
+			
+	}
+	
+	
 	
 }

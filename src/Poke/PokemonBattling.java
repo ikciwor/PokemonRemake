@@ -4,11 +4,34 @@ package Poke;
 public class PokemonBattling extends Pokemon{
 	
 
-	public int m_def=0, m_atk=0, m_spdef=0, m_spatk=0, m_spd=0;
-	public int acc=100, evs=100;
+	private int mDef=0, mAtk=0, mSpdef=0, mSpatk=0, mSpd=0;
+	private int acc=100, evs=100;
 
 	
-	boolean confused=false;
+	private boolean confused=false;
+	
+	private boolean attracted=false;
+	private boolean flinched=false;
+	
+	private boolean seeded=false;
+	private boolean whirlpooled=false;
+	private boolean fireSpined=false;
+	private boolean sandTombed=false;
+	private boolean wrapped=false;
+	private boolean clamped=false;
+	private boolean binded=false;
+	private boolean cursed=false;
+	
+	private boolean encored=false;
+	
+	private boolean badlyPoisoned=false;
+
+
+	
+	public int getPriorityOfMove(int n)
+	{
+		return move[n].priority;
+	}
 	
 	
 	double stat(int m) //m_staty - zmienione w trakcie walki
@@ -16,69 +39,134 @@ public class PokemonBattling extends Pokemon{
 		return (m>=0)? (m+2)/2 : 2/(-m+2); //prawidłowy mnożnik
 	}
 	
-	int resultAtk()
+	public int resultAtk()
 	{
-		return atk*(int)stat(m_atk);
+		return atk*(int)stat(mAtk);
 	}
 	
-	int resultSpatk()
+	public int resultSpatk()
 	{
-		return spatk*(int)stat(m_spatk);
+		return spatk*(int)stat(mSpatk);
 	}
 	
-	int resultDef()
+	public int resultDef()
 	{
-		return def*(int)stat(m_def);
+		return def*(int)stat(mDef);
 	}
 	
-	int resultSpdef()
+	public int resultSpdef()
 	{
-		return spdef*(int)stat(m_spdef);
+		return spdef*(int)stat(mSpdef);
 	}
 	
-	int resultSpd()
+	public int resultSpd()
 	{
-		return spd*(int)stat(m_spd);
+		return spd*(int)stat(mSpd);
 	}
 	
-	public int getM_def() {
-		return m_def;
+	public boolean modifyMAtk(int n)
+	{
+		if(mAtk<=-6)
+		{
+			return false;
+		}
+		else
+		{
+			mAtk-=n;
+			return true;
+		}
+	}
+	
+	public boolean modifyMSpatk(int n)
+	{
+		if(mSpatk<=-6)
+		{
+			return false;
+		}
+		else
+		{
+			mSpatk-=n;
+			return true;
+		}
+	}
+	
+	public boolean modifyMDef(int n)
+	{
+		if(mDef<=-6)
+		{
+			return false;
+		}
+		else
+		{
+			mDef-=n;
+			return true;
+		}
+	}
+	
+	public boolean modifyMSpdef(int n)
+	{
+		if(mSpdef<=-6)
+		{
+			return false;
+		}
+		else
+		{
+			mSpdef-=n;
+			return true;
+		}
+	}
+	
+	public boolean modifyMSpd(int n)
+	{
+		if(mSpd<=-6)
+		{
+			return false;
+		}
+		else
+		{
+			mSpd-=n;
+			return true;
+		}
 	}
 
-	public void setM_def(int m_def) {
-		this.m_def = m_def;
+	public int getmDef() {
+		return mDef;
 	}
 
-	public int getM_atk() {
-		return m_atk;
+	public void setmDef(int mDef) {
+		this.mDef = mDef;
 	}
 
-	public void setM_atk(int m_atk) {
-		this.m_atk = m_atk;
+	public int getmAtk() {
+		return mAtk;
 	}
 
-	public int getM_spdef() {
-		return m_spdef;
+	public void setmAtk(int mAtk) {
+		this.mAtk = mAtk;
 	}
 
-	public void setM_spdef(int m_spdef) {
-		this.m_spdef = m_spdef;
+	public int getmSpdef() {
+		return mSpdef;
 	}
 
-	public int getM_spatk() {
-		return m_spatk;
+	public void setmSpdef(int mSpdef) {
+		this.mSpdef = mSpdef;
 	}
 
-	public void setM_spatk(int m_spatk) {
-		this.m_spatk = m_spatk;
+	public int getmSpatk() {
+		return mSpatk;
 	}
 
-	public int getM_spd() {
-		return m_spd;
+	public void setmSpatk(int mSpatk) {
+		this.mSpatk = mSpatk;
 	}
 
-	public void setM_spd(int m_spd) {
-		this.m_spd = m_spd;
+	public int getmSpd() {
+		return mSpd;
+	}
+
+	public void setmSpd(int mSpd) {
+		this.mSpd = mSpd;
 	}
 
 	public int getAcc() {
@@ -104,5 +192,95 @@ public class PokemonBattling extends Pokemon{
 	public void setConfused(boolean confused) {
 		this.confused = confused;
 	}
+
+	public boolean isAttracted() {
+		return attracted;
+	}
+
+	public void setAttracted(boolean attracted) {
+		this.attracted = attracted;
+	}
+
+	public boolean isFlinched() {
+		return flinched;
+	}
+
+	public void setFlinched(boolean flinched) {
+		this.flinched = flinched;
+	}
+
+	public boolean isSeeded() {
+		return seeded;
+	}
+
+	public void setSeeded(boolean seeded) {
+		this.seeded = seeded;
+	}
+
+	public boolean isWhirlpooled() {
+		return whirlpooled;
+	}
+
+	public void setWhirlpooled(boolean whirlpooled) {
+		this.whirlpooled = whirlpooled;
+	}
+
+	public boolean isFireSpined() {
+		return fireSpined;
+	}
+
+	public void setFireSpined(boolean fireSpined) {
+		this.fireSpined = fireSpined;
+	}
+
+	public boolean isSandTombed() {
+		return sandTombed;
+	}
+
+	public void setSandTombed(boolean sandTombed) {
+		this.sandTombed = sandTombed;
+	}
+
+	public boolean isWrapped() {
+		return wrapped;
+	}
+
+	public void setWrapped(boolean wrapped) {
+		this.wrapped = wrapped;
+	}
+
+	public boolean isClamped() {
+		return clamped;
+	}
+
+	public void setClamped(boolean clamped) {
+		this.clamped = clamped;
+	}
+
+	public boolean isBinded() {
+		return binded;
+	}
+
+	public void setBinded(boolean binded) {
+		this.binded = binded;
+	}
+
+	public boolean isCursed() {
+		return cursed;
+	}
+
+	public void setCursed(boolean cursed) {
+		this.cursed = cursed;
+	}
+
+	public boolean isEncored() {
+		return encored;
+	}
+
+	public void setEncored(boolean encored) {
+		this.encored = encored;
+	}
+
+	
 	
 }

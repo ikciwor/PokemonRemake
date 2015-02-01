@@ -19,9 +19,9 @@ public class Ember extends Move{
 	
 	public void doMove(PokemonBattling target)
 	{
-		damage();
+		damage(target);
 		if(rand.nextInt(10)==0)
-			victim.status=Status.BURN;
+			target.status=Status.BURN;
 	}
 
 }

@@ -8,7 +8,6 @@ import Poke.*;
 public abstract class Move{
 	
 	protected PokemonBattling user;
-	protected PokemonBattling victim;
 	
 	Random rand = new Random();
 	TypeChart tab = new TypeChart ();
@@ -23,24 +22,20 @@ public abstract class Move{
 	public boolean touch=false;
 	public int ppmax=0;
 	public int pp=ppmax;
+	public int priority=0;
 	
 	
 	
-	void damage()
+	void damage(PokemonBattling target)
 	{
 		int cAtk=(special)? user.spatk : user.atk; //atak pokemona użyty do obliczeń
-		int cDef=(special)? victim.spdef : victim.def;
+		int cDef=(special)? target.spdef : target.def;
 		
-		double mod=tab.factor(type, victim.spieces.type1) * (tab.factor(type, victim.spieces.type2) * ((critical()) ? 2 : 1) * ((user.spieces.type1==type) ? 2 : 1)) * (rand.nextInt(15)/100+0.85); //rel. typów, STAB1STAB2, critical, random
+		double mod=tab.factor(type, target.spieces.type1) * (tab.factor(type, target.spieces.type2) * ((critical()) ? 2 : 1) * ((user.spieces.type1==type) ? 2 : 1)) * (rand.nextInt(15)/100+0.85); //rel. typów, STAB1STAB2, critical, random
 		
-		double loss=( (2*user.level+10 )/255 * cAtk/cDef * pow * ((special) ? (calcStatStage(user.m_spatk)/calcStatStage(victim.m_spdef)) : (calcStatStage(user.m_atk)/calcStatStage(victim.m_def))) +2) * mod; //level, staty, moc, m_staty, mod
+		double loss=( (2*user.level+10 )/255 * cAtk/cDef * pow * ((special)? user.resultSpatk()/target.resultSpdef() : user.resultAtk()/target.resultDef() ) +2) * mod; //level, staty, moc, m_staty, mod
 		
-		victim.hp=(loss>=victim.hp)? 0 : victim.hp-(int)loss;
-	}
-	
-	double calcStatStage(int m) //m_staty - zmienione w trakcie walki
-	{
-		return (m>=0)? (m+2)/2 : 2/(-m+2); //prawidłowy mnożnik
+		target.hp=(loss>=target.hp)? 0 : target.hp-(int)loss;
 	}
 	
 	boolean critical()
@@ -48,21 +43,13 @@ public abstract class Move{
 		return critRatio*user.spd/512>=rand.nextInt(100);
 	}
 	
-	public boolean initMove(PokemonBattling target) //zwraca czy ruch wykonano (z powodu min. pp)
+	public void doMove(PokemonBattling target)
 	{
-		boolean success = (pp>0);
-		
-		if(success)
-		{
-			doMove(target);
-			--pp;
-			return true;
-		}
-		else
-			return false;
+
 	}
 	
-	abstract void doMove (PokemonBattling target);
+	
+
 	
 
 	
