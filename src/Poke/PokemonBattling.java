@@ -1,5 +1,6 @@
 package Poke;
 
+import Moves.Move;
 
 public class PokemonBattling extends Pokemon{
 	
@@ -28,10 +29,6 @@ public class PokemonBattling extends Pokemon{
 
 
 	
-	public int getPriorityOfMove(int n)
-	{
-		return move[n].priority;
-	}
 	
 	
 	double stat(int m) //m_staty - zmienione w trakcie walki

@@ -22,9 +22,9 @@ public class Bot {
 	{
 		if(me.pokemonBattling.isFainted()) {
 			int which = 1;  // which
-			battle.switchPokemon(which);
+			battle.switchPokemon(me, which);
 		} else {
-			battle.chooseMove(rand.nextInt(4));
+			battle.prepareTurn(rand.nextInt(4));
 		}
 	}
 	

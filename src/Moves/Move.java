@@ -22,7 +22,7 @@ public abstract class Move{
 	public boolean touch=false;
 	public int ppmax=0;
 	public int pp=ppmax;
-	public int priority=0;
+	private int priority=0;
 	
 	
 	
@@ -46,6 +46,14 @@ public abstract class Move{
 	public void doMove(PokemonBattling target)
 	{
 
+	}
+
+	public int getPriority() {
+		return priority;
+	}
+
+	public void setPriority(int priority) {
+		this.priority = priority;
 	}
 	
 	
