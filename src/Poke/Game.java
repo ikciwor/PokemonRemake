@@ -38,7 +38,7 @@ public class Game extends JPanel{
 		EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				Frame frame = new Frame();
+				Gui gui = new Gui();
 
 			}
 		});

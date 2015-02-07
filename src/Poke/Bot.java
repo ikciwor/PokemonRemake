@@ -24,7 +24,7 @@ public class Bot {
 			int which = 1;  // which
 			battle.switchPokemon(me, which);
 		} else {
-			battle.prepareTurn(rand.nextInt(4));
+			battle.takeOrders(rand.nextInt(4));
 		}
 	}
 	

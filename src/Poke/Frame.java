@@ -1,5 +1,8 @@
 package Poke;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Rectangle;
@@ -11,7 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 
-public class Frame extends JFrame{
+public abstract class Frame extends JFrame{
 	private static final long serialVersionUID = 345924759794811391L;
 
 	public static int HEIGHT=650, WIDTH=650;
@@ -52,10 +55,8 @@ public class Frame extends JFrame{
 	JButton remove = new JButton("^");
 	JButton add2 = new JButton("v");
 	JButton remove2 = new JButton("^");
-
-	JButton change = new JButton("CHANGE");
 	
-	JButton switchpkmn = new JButton("SWITCH");
+	JButton switchPkmn = new JButton("SWITCH");
 	
 	JButton exit = new JButton("START");
 	
@@ -68,11 +69,11 @@ public class Frame extends JFrame{
 	JPanel wybor = new JPanel();
 	JPanel walka = new JPanel();
 	JPanel wynik = new JPanel();
-	JPanel zmiana = new JPanel();
+	JPanel change = new JPanel();
 	
 	JPanel previousPanel;
 
-	
+
 	
 	Game game = new Game();
 	
@@ -104,9 +105,9 @@ public class Frame extends JFrame{
 	    wynik.setLayout(null);
 		setUndecorated(true);
 		
-	    add(zmiana, BorderLayout.CENTER);
-	    zmiana.setBounds(0,0,WIDTH,HEIGHT);
-	    zmiana.setLayout(null);
+	    add(change, BorderLayout.CENTER);
+	    change.setBounds(0,0,WIDTH,HEIGHT);
+	    change.setLayout(null);
 		setUndecorated(true);
 		
 	    pack();
@@ -118,23 +119,21 @@ public class Frame extends JFrame{
 		
 		add(game);
 
-		gen();
+
 		//genZmiana();
 		//genWybor();
 		genWalka();
 		
 	}
 	
-	void gen()
-	{
-	}
+
 	
 	void genHello()
 	{
 		hello.setVisible(true);
 		wybor.setVisible(false);
 		walka.setVisible(false);
-		zmiana.setVisible(false);
+		change.setVisible(false);
 		wynik.setVisible(false);
 
 		hello.add(start, BorderLayout.SOUTH);
@@ -146,7 +145,7 @@ public class Frame extends JFrame{
 		hello.setVisible(false);
 		wybor.setVisible(true);
 		walka.setVisible(false);
-		zmiana.setVisible(false);
+		change.setVisible(false);
 		wynik.setVisible(false);
 		
 		wybor.add(go, BorderLayout.SOUTH);
@@ -206,7 +205,7 @@ public class Frame extends JFrame{
 		hello.setVisible(false);
 		wybor.setVisible(false);
 		walka.setVisible(true);
-		zmiana.setVisible(false);
+		change.setVisible(false);
 		wynik.setVisible(false);
 		
 		walka.add(move[0]);
@@ -221,8 +220,8 @@ public class Frame extends JFrame{
 		walka.add(move[3]);
 		move[3].setBounds(WIDTH/2-100, HEIGHT-70, WIDTH/2-100, 70);
 		
-		walka.add(change);
-		change.setBounds(WIDTH-150, HEIGHT-140, 150, 140);
+		walka.add(switchPkmn);
+		switchPkmn.setBounds(WIDTH-150, HEIGHT-140, 150, 140);
 	}
 	
 	void genZmiana()
@@ -230,19 +229,19 @@ public class Frame extends JFrame{
 		hello.setVisible(false);
 		wybor.setVisible(false);
 		walka.setVisible(false);
-		zmiana.setVisible(true);
+		change.setVisible(true);
 		wynik.setVisible(false);
 		
-		zmiana.add(party, BorderLayout.SOUTH);
+		change.add(party, BorderLayout.SOUTH);
 		party.setBounds(WIDTH/2-80, 50, 160, 20);
 		
-		zmiana.add(staty[0]=new JLabel());
+		change.add(staty[0]=new JLabel());
 		staty[0].setBounds(WIDTH/2-128, 90, 256, 256);
 		
-		zmiana.add(switchpkmn);
-		switchpkmn.setBounds(0, HEIGHT-100, WIDTH/2, 100);
+		change.add(switchPkmn);
+		switchPkmn.setBounds(0, HEIGHT-100, WIDTH/2, 100);
 		
-		zmiana.add(cancel);
+		change.add(cancel);
 		cancel.setBounds(WIDTH/2, HEIGHT-100, WIDTH/2, 100);
 		
 		staty[0].setText(fe);
@@ -250,7 +249,7 @@ public class Frame extends JFrame{
 		
 		for(int i=1; i<8; ++i)
 		{
-			zmiana.add(staty[i]=new JLabel());
+			change.add(staty[i]=new JLabel());
 			staty[i].setBounds(WIDTH/2-40, 256+90+i*20, 80, 20);
 			staty[i].setText(fe);
 		}
@@ -261,49 +260,12 @@ public class Frame extends JFrame{
 		hello.setVisible(false);
 		wybor.setVisible(false);
 		walka.setVisible(false);
-		zmiana.setVisible(false);
+		change.setVisible(false);
 		wynik.setVisible(true);
 	}
 	
-	public int getPressedButton()
-	{
-		if(move[0].getModel().isPressed())
-		{
-			return 0;
-		}
-		if(move[0].getModel().isPressed())
-		{
-			return 1;
-		}
-		if(move[0].getModel().isPressed())
-		{
-			return 2;
-		}
-		if(move[0].getModel().isPressed())
-		{
-			return 3;
-		}
-		if(switchpkmn.getModel().isPressed())
-		{
-			return 5;
-		}
-		return -1;
-			
-	}
-	
 
-	public void enableMoves(boolean b)
-	{
-		for(int i=0; i<4; ++i)
-		{
-			move[i].setEnabled(b);
-		}
-	}
-	
-	public void enableMoves(int a, boolean b)
-	{
-			move[a].setEnabled(b);
-	}
+
 	
 	
 }

@@ -11,32 +11,28 @@ public class Battle {
 
 	Player[] players = new Player[2];
 
-	PokemonBattling[] pok = new PokemonBattling[2]; // skrót
+	public PokemonBattling[] pok = new PokemonBattling[2]; // skrót
 	PokemonBattling[] targets = new PokemonBattling[4]; // do podwójnych
-
-	private Move[] chosenMove = new Move[2];
-	
-	private enum TypeOfTurn {MOVE, SWITCH, STILL}
-	TypeOfTurn[] typeOfTurn = new TypeOfTurn[2];
 	
 	private int[] idPokToSwitch=new int[2];
+	private int currentPlayer=0;
+	
+	private boolean buttonsAllowed;
 
-	Frame frame;
+	Gui gui;
 
 	public Weather weather;
 
-	public Battle() {
+	public Battle(Gui gui) {
 
 		pok[0] = players[0].pokemonBattling;
 		pok[1] = players[1].pokemonBattling; // skrót
+		this.gui = gui;
 		
 		nextRound();
 
 	}
 
-	public void getFrame(Frame frame) {
-		this.frame = frame;
-	}
 
 	void reset() {
 		for (int i = 0; i < 5; ++i) {
@@ -51,38 +47,29 @@ public class Battle {
 
 		int[] order = turnOrder();
 		
-		switch(typeOfTurn[order[0]]){
-		
-		case MOVE:
-			chosenMove[order[0]].doMove(pok[1]);
-			break;
-		case SWITCH:
-			switchPokemon(players[order[0]], idPokToSwitch[order[0]]);
-			break;
-		case STILL:
-			break;
-		}
-		
-		switch(typeOfTurn[order[1]]){
-		
-		case MOVE:
-			chosenMove[order[1]].doMove(pok[1]);
-			break;
-		case SWITCH:
-			switchPokemon(players[order[1]], idPokToSwitch[order[1]]);
-			break;
-		case STILL:
-			break;
-		}
+		doAction(players[order[0]]);
+		doAction(players[order[1]]);
 		
 		nextRound();
 
+	}
+	
+	void doAction(Player player)
+	{
+		int n=(player==players[0])? 0 : 1;
+		switch (player.getActionType()){
+		case SWITCH: 
+			switchPokemon(player);
+			break;
+		case MOVE:
+			player.getActionMove().doMove(pok[(n%2)+1]);
+		}
 	}
 
 	public int[] turnOrder() {
 		int[] order = new int[2];
 
-		if (chosenMove[0].getPriority() == chosenMove[1].getPriority()) {
+		if (players[0].getActionPriority() == players[1].getActionPriority()) {
 
 			if (pok[0].resultSpd() > pok[1].resultSpd()) {
 				order[0] = 0;
@@ -98,7 +85,7 @@ public class Battle {
 				order[1] = (r - 1) % 2;
 			}
 
-		} else if (chosenMove[0].getPriority() > chosenMove[1].getPriority()) {
+		} else if (players[0].getActionPriority() > players[1].getActionPriority()) {
 			order[0] = 0;
 			order[1] = 1;
 		} else {
@@ -108,7 +95,8 @@ public class Battle {
 		return order;
 	}
 
-	public void switchPokemon(Player player, int id) {
+	public void switchPokemon(Player player) {
+		int id = player.getActionIdToSwitch();
 		
 		Pokemon swapPokemon = new Pokemon();
 		swapPokemon=player.pokemon[0];
@@ -119,6 +107,22 @@ public class Battle {
 		
 		// odpalić kontunuuj
 	}
+	
+	public void chooseMove (Player player, int id)
+	{
+		player.setAction(id);
+		
+		gui.enableMoves(false);
+		buttonsAllowed=false;
+	}
+	public void chooseMove (Player player, Move move)
+	{
+		int n=(player==players[0])? 0 : 1;
+		player.setAction(move);
+		
+		gui.enableMoves(false);
+		buttonsAllowed=false;
+	}
 
 	
 	public void loadPokemon()
@@ -126,37 +130,17 @@ public class Battle {
 		
 	}
 
-	public void prepareTurn(final int id) { 
+	public void takeOrders(int id) { 
 		if (players[id].isBot()) {
 
 		} else {
-			frame.enableMoves(true);
-			EventQueue.invokeLater(new Runnable() {
-				@Override
-				public void run() {
-
-					while (true) {
-						if (frame.getPressedButton() >= 0) {
-							if (frame.getPressedButton() <4) {
-								chosenMove[id] = pok[id].move[frame.getPressedButton()];
-								typeOfTurn[id]=TypeOfTurn.MOVE;
-							}
-							else if(frame.getPressedButton()==5) // zmiana pokemona
-							{
-								chosenMove[id].setPriority(6);
-								typeOfTurn[id]=TypeOfTurn.SWITCH;
-							}
-							break;
-						}
-					}
-
-				}
-			});
+			currentPlayer=id;
+			gui.enableMoves(true);
+			buttonsAllowed=true;
 		}
-		frame.enableMoves(false);
-
-		// odpalić kontynuuj
+		
 	}
+
 	
 
 	public void nextRound() {
@@ -164,8 +148,7 @@ public class Battle {
 			@Override
 			public void run() {
 				
-				prepareTurn(0);
-				prepareTurn(1);
+				takeOrders(0);
 
 				executeRound();
 
@@ -173,6 +156,17 @@ public class Battle {
 		});
 		// odpalić turn w nowym wątku
 	}
+	
+	public boolean areButtonsAllowed()
+	{
+		return buttonsAllowed;
+	}
+	
+	public int getCurrentPlayer()
+	{
+		return currentPlayer;
+	}
+
 
 }
 
