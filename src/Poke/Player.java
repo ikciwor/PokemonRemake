@@ -33,7 +33,7 @@ public class Player {
 	
 	public int getActionPriority()
 	{
-		return(action.getPriority());
+		return action.getPriority();
 	}
 	
 	public Type getActionType()

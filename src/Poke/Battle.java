@@ -16,23 +16,25 @@ public class Battle {
 	private int[] idPokToSwitch = new int[2];
 	private int currentPlayer = 0;
 
-	private boolean buttonsAllowed;
 
 	Gui gui;
 
 	public Weather weather;
 
 	public Battle(Gui gui) {
+		
+		players[0]=new Player(null);
+		players[1]=new Player(null);
 
 		pok[0] = players[0].pokemonBattling;
 		pok[1] = players[1].pokemonBattling;
 		this.gui = gui;
 
-		takeOrders(0);
+		//takeOrders(0);
 
 	}
 
-	void reset() {
+	private void reset() {
 		for (int i = 0; i < 5; ++i) {
 			for (int j = 0; j < 4; ++j) {
 				players[0].pokemon[i].move[j].pp = players[0].pokemon[i].move[j].ppmax;
@@ -57,7 +59,7 @@ public class Battle {
 		});
 	}
 
-	void doAction(Player player) {
+	private void doAction(Player player) {
 		int n = (player == players[0]) ? 0 : 1;
 		switch (player.getActionType()) {
 		case SWITCH:
@@ -68,7 +70,7 @@ public class Battle {
 		}
 	}
 
-	public int[] turnOrder() {
+	private int[] turnOrder() {
 		int[] order = new int[2];
 
 		if (players[0].getActionPriority() == players[1].getActionPriority()) {
@@ -98,7 +100,7 @@ public class Battle {
 		return order;
 	}
 
-	public void switchPokemon(Player player) {
+	private void switchPokemon(Player player) {
 		int id = player.getActionIdToSwitch();
 
 		Pokemon swapPokemon = new Pokemon();
@@ -108,18 +110,16 @@ public class Battle {
 		player.pokemonBattling = (PokemonBattling) player.pokemon[0];
 	}
 
-	public void chooseMove(Player player, int id) {
-		player.setAction(id);
-		buttonsAllowed = false;
+	public void choosePokemon(int id) {
+		players[getCurrentPlayer()].setAction(id);
+		
 	}
 
-	public void chooseMove(Player player, Move move) {
-		int n = (player == players[0]) ? 0 : 1;
-		player.setAction(move);
-		buttonsAllowed = false;
+	public void chooseMove(Move move) {
+		players[getCurrentPlayer()].setAction(move);
 	}
 
-	public void loadPokemon() {
+	private void loadPokemon() {
 
 	}
 
@@ -128,14 +128,17 @@ public class Battle {
 
 		} else {
 			currentPlayer = id;
-			gui.waitForOrders();
-			buttonsAllowed = true;
+			gui.waitForOrders(players[currentPlayer]);
+		}
+		
+		++currentPlayer;
+		
+		if (getCurrentPlayer() < 1) {
+			takeOrders(getCurrentPlayer() + 1);
+		} else {
+			executeRound();
 		}
 
-	}
-
-	public boolean areButtonsAllowed() {
-		return buttonsAllowed;
 	}
 
 	public int getCurrentPlayer() {

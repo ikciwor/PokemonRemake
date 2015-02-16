@@ -7,13 +7,17 @@ public class Gui extends Frame {
 
 	Battle battle = new Battle(this);
 	Player[] players = new Player[2];
+	Player activePlayer;
 
 	public Gui() {
 		players[0] = battle.players[0];
 		players[1] = battle.players[1];
+
+		// Debug debug = new Debug(battle);
+		genActionListeners();
 	}
 
-	void gen() {
+	private void genActionListeners() {
 
 		for (int i = 0; i < 4; ++i) {
 			addMoveButton(i);
@@ -23,16 +27,12 @@ public class Gui extends Frame {
 			public void actionPerformed(ActionEvent e) {
 
 				enableMoves(false);
-				if (battle.areButtonsAllowed()) {
 
-					if (change.isVisible()) {
-						battle.chooseMove(players[battle.getCurrentPlayer()],
-								party[battle.getCurrentPlayer()]
-										.getSelectedIndex());
-					} else {
-						genChange();
-					}
-
+				if (change.isVisible()) {
+					battle.choosePokemon(party[battle.getCurrentPlayer()]
+							.getSelectedIndex());
+				} else {
+					genChange();
 				}
 
 			}
@@ -45,16 +45,8 @@ public class Gui extends Frame {
 			public void actionPerformed(ActionEvent e) {
 
 				enableMoves(false);
-				if (battle.areButtonsAllowed()) {
 
-					battle.chooseMove(players[battle.getCurrentPlayer()],
-							battle.pok[battle.getCurrentPlayer()].move[d]);
-					if (battle.getCurrentPlayer() < 2) {
-						battle.takeOrders(battle.getCurrentPlayer() + 1);
-					} else {
-						battle.executeRound();
-					}
-				}
+				battle.chooseMove(battle.pok[battle.getCurrentPlayer()].move[d]);
 
 			}
 		});
@@ -69,9 +61,15 @@ public class Gui extends Frame {
 	private void enableMoves(int a, boolean b) {
 		move[a].setEnabled(b);
 	}
-	
-	public void waitForOrders()
-	{
+
+	public void waitForOrders(Player player) {
+		/*
+		 * To jest jedyna metoda z którą będzie wywoływał Battle.
+		 * Co więcej, wywołanie tej metody zawsze będzie ostanią operacją wykonaną przez Battle, potem Battle się zakończy.
+		 */
+		activePlayer = player;
+		// [załadowanie interfejsu dla activePlayer (odpowiednie ataki itp.) -- użycie getterów z battle];
+		// [odblokowanie interfejsu (uaktywnienie przyciskówi itp.)];
 		enableMoves(true);
 	}
 
