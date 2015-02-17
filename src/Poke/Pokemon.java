@@ -8,7 +8,7 @@ public class Pokemon {
 
 	Random rand = new Random();
 
-	public PokemonSpieces spieces = new PokemonSpieces("");
+	public PokemonSpieces spieces;
 
 	int ev_hp = 0, ev_spd = 0, ev_atk = 0, ev_spatk = 0, ev_def = 0,
 			ev_spdef = 0;
@@ -16,9 +16,9 @@ public class Pokemon {
 	int iv_hp = rand.nextInt(16), iv_def = rand.nextInt(16),iv_atk = rand.nextInt(16), iv_spdef = rand.nextInt(16),iv_spatk = rand.nextInt(16), iv_spd = rand.nextInt(16);
 
 	public int level = 50;
-	public int hp, def, atk, spdef, spatk, spd;
-	public Status status;
-	protected int maxhp;
+	public int maxhp, def, atk, spdef, spatk, spd;
+	public Status status=Status.NONE;
+	public int hp;
 	
 	private int badPoison=0;
 
@@ -32,15 +32,21 @@ public class Pokemon {
 		hp = (hp - dmg > 0) ? hp - dmg : 0;
 	}
 
-	public Pokemon() {
+	public Pokemon(PokemonSpieces spieces) {
+		
+		this.spieces=spieces;
+		
+		/* Określanie statów */
+		
 		maxhp = (iv_hp + spieces.baseHp + (int) Math.sqrt((double) ev_hp) / 8 + 50) * level / 50 + 10;
 
 		atk = (iv_atk + spieces.baseAtk + (int) Math.sqrt((double) ev_atk) / 8) * level / 50 + 5;
 		spatk = (iv_spatk + spieces.baseSpatk + (int) Math.sqrt((double) ev_spatk) / 8) * level / 50 + 5;
 		def = (iv_def + spieces.baseDef + (int) Math.sqrt((double) ev_def) / 8) * level / 50 + 5;
 		spdef = (iv_spdef + spieces.baseSpdef + (int) Math.sqrt((double) ev_spdef) / 8) * level / 50 + 5;
-		spd = (iv_spd + spieces.baseSpd + (int) Math.sqrt((double) ev_spd) / 8) * level / 50 + 5; // okrelanie
-																								// statów
+		spd = (iv_spd + spieces.baseSpd + (int) Math.sqrt((double) ev_spd) / 8) * level / 50 + 5;
+		
+		hp=maxhp;
 	}
 	
 	public boolean isFainted()

@@ -3,6 +3,8 @@ package Poke;
 import java.awt.EventQueue;
 import java.util.Random;
 
+import javax.swing.JOptionPane;
+
 import Moves.Move;
 
 public class Battle {
@@ -14,26 +16,72 @@ public class Battle {
 	public PokemonBattling[] pok = new PokemonBattling[2];
 
 	private int[] idPokToSwitch = new int[2];
-	private int currentPlayer = 0;
-
+	private int currentPlayer = -1;
 
 	Gui gui;
 
 	public Weather weather;
 
-	public Battle(Gui gui) {
+	public Battle(Gui gui, Player player0, Player player1) {
 		
-		players[0]=new Player(null);
-		players[1]=new Player(null);
+		players[0]=player0;
+		players[1]=player1;
 
 		pok[0] = players[0].pokemonBattling;
 		pok[1] = players[1].pokemonBattling;
 		this.gui = gui;
 
-		//takeOrders(0);
+		takeOrders();
 
 	}
 
+	public void choosePokemon(int id) {
+		players[getCurrentPlayer()].setAction(id);
+		
+	}
+
+	public void chooseMove(int moveId) {
+		players[getCurrentPlayer()].setAction(pok[currentPlayer].move[moveId]);
+		takeOrders();
+	}
+	
+	public void takeOrders() {
+		/*
+		 * Uwaga: Dowolny z playerów może zostać pominięty, np. z powodu jakiegoś 'fly'.
+		 *        Wówczas takeOrders się nie kończy, tylko od razu przechodzi do kolejnego etapu.
+		 */
+		
+		if (currentPlayer == -1) {
+			currentPlayer = 0;
+			gui.waitForOrders(players[currentPlayer]);
+			return;
+		}
+		
+		if (currentPlayer == 0) {
+			currentPlayer = 1;
+			gui.waitForOrders(players[currentPlayer]);
+			return;
+		}
+
+		currentPlayer = -1;
+		executeRound();
+		
+		/*if (players[id].isBot()) {
+
+		} else {
+			currentPlayer = id;
+			gui.waitForOrders(players[currentPlayer]);
+		}
+		
+		++currentPlayer;
+		
+		if (getCurrentPlayer() < 1) {
+			takeOrders(getCurrentPlayer() + 1);
+		} else {
+			executeRound();
+		}*/
+	}
+	
 	private void reset() {
 		for (int i = 0; i < 5; ++i) {
 			for (int j = 0; j < 4; ++j) {
@@ -49,11 +97,13 @@ public class Battle {
 			public void run() {
 
 				int[] order = turnOrder();
-
+				JOptionPane.showMessageDialog(gui, "Bitwaaaa na poduszki");
 				doAction(players[order[0]]);
 				doAction(players[order[1]]);
-
-				takeOrders(0);
+				
+				// ...
+				
+				takeOrders();
 
 			}
 		});
@@ -66,7 +116,7 @@ public class Battle {
 			switchPokemon(player);
 			break;
 		case MOVE:
-			player.getActionMove().doMove(pok[(n % 2) + 1]);
+			player.getActionMove().doMove(pok[1-(n % 2)]);
 		}
 	}
 
@@ -103,41 +153,14 @@ public class Battle {
 	private void switchPokemon(Player player) {
 		int id = player.getActionIdToSwitch();
 
-		Pokemon swapPokemon = new Pokemon();
-		swapPokemon = player.pokemon[0];
-		player.pokemon[0] = player.pokemon[id];
-		player.pokemon[id] = swapPokemon;
-		player.pokemonBattling = (PokemonBattling) player.pokemon[0];
-	}
-
-	public void choosePokemon(int id) {
-		players[getCurrentPlayer()].setAction(id);
-		
-	}
-
-	public void chooseMove(Move move) {
-		players[getCurrentPlayer()].setAction(move);
+//		Pokemon swapPokemon = new Pokemon();
+//		swapPokemon = player.pokemon[0];
+//		player.pokemon[0] = player.pokemon[id];
+//		player.pokemon[id] = swapPokemon;
+//		player.pokemonBattling = (PokemonBattling) player.pokemon[0];
 	}
 
 	private void loadPokemon() {
-
-	}
-
-	public void takeOrders(int id) {
-		if (players[id].isBot()) {
-
-		} else {
-			currentPlayer = id;
-			gui.waitForOrders(players[currentPlayer]);
-		}
-		
-		++currentPlayer;
-		
-		if (getCurrentPlayer() < 1) {
-			takeOrders(getCurrentPlayer() + 1);
-		} else {
-			executeRound();
-		}
 
 	}
 

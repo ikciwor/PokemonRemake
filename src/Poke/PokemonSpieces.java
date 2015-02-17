@@ -2,7 +2,7 @@ package Poke;
 
 import java.awt.image.BufferedImage;
 
-public class PokemonSpieces extends Pokemon{
+public class PokemonSpieces{
 	
 	public Type type1, type2; 
 	public String name=new String("MISSINGNO.");

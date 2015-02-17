@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import javax.swing.JButton;
@@ -66,9 +68,14 @@ public abstract class Frame extends JFrame {
 	JPanel walka = new JPanel();
 	JPanel wynik = new JPanel();
 	JPanel change = new JPanel();
+	
+	JPanel statPanel = new JPanel();
+	JPanel hudPanel[] = new JPanel[2];
 
 	JPanel previousPanel;
 
+	Rectangle hpBar[] = new Rectangle[2];
+	
 	Game game = new Game();
 
 	public Frame() {
@@ -97,18 +104,18 @@ public abstract class Frame extends JFrame {
 		add(wynik, BorderLayout.CENTER);
 		wynik.setBounds(0, 0, WIDTH, HEIGHT);
 		wynik.setLayout(null);
-		setUndecorated(true);
 
 		add(change, BorderLayout.CENTER);
 		change.setBounds(0, 0, WIDTH, HEIGHT);
 		change.setLayout(null);
-		setUndecorated(true);
+		
+		//setUndecorated(true);
 
 		pack();
 		setVisible(true);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(WIDTH, HEIGHT);
+		setSize(WIDTH+4, HEIGHT+27);
 
 		add(game);
 
@@ -192,7 +199,11 @@ public abstract class Frame extends JFrame {
 		walka.setVisible(true);
 		change.setVisible(false);
 		wynik.setVisible(false);
-
+		
+		
+		hpBar[0]=new Rectangle();
+		hpBar[1]=new Rectangle();
+		
 		walka.add(move[0]);
 		move[0].setBounds(0, HEIGHT - 140, WIDTH / 2 - 100, 70);
 
@@ -207,6 +218,8 @@ public abstract class Frame extends JFrame {
 
 		walka.add(switchPkmn);
 		switchPkmn.setBounds(WIDTH - 150, HEIGHT - 140, 150, 140);
+		
+		
 	}
 
 	void genChange() {
@@ -243,6 +256,14 @@ public abstract class Frame extends JFrame {
 		walka.setVisible(false);
 		change.setVisible(false);
 		wynik.setVisible(true);
+	}
+	
+	@Override
+	public void paint(Graphics g)
+	{
+		super.paint(g);
+		Graphics2D g2d = (Graphics2D)g;
+
 	}
 
 }

@@ -6,8 +6,8 @@ import Poke.Type;
 
 public class Ember extends Move{
 	
-	public Ember()
-	{
+	public Ember(PokemonBattling user){
+		super(user);
 		pow=40;
 		pp=25;
 		ppmax=25;

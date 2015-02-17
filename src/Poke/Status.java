@@ -1,6 +1,6 @@
 package Poke;
 
 public enum Status {
-	BURN,POISON,PARALYSIS,SLEEP,FREEZE;
+	NONE,BURN,POISON,PARALYSIS,SLEEP,FREEZE;
 
 }

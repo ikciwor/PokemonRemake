@@ -6,8 +6,8 @@ import Poke.Type;
 
 public class Absorb extends Move{
 	
-	public Absorb()
-	{
+	public Absorb(PokemonBattling user){
+		super(user);
 		pow=25;
 		acc=100;
 		type=Type.GRASS;

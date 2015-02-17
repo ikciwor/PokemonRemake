@@ -22,7 +22,7 @@ public class Bot {
 		if (me.pokemonBattling.isFainted()) {
 
 		} else {
-			battle.takeOrders(rand.nextInt(4));
+			battle.chooseMove(rand.nextInt(4));
 		}
 	}
 

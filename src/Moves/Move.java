@@ -24,6 +24,10 @@ public abstract class Move{
 	public int pp=ppmax;
 	private int priority=0;
 	
+	public Move(PokemonBattling user){
+		this.user=user;
+	}
+	
 	
 	
 	void damage(PokemonBattling target)

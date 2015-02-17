@@ -4,8 +4,8 @@ import Poke.PokemonBattling;
 
 public class Growl extends Move{
 	
-	public Growl()
-	{
+	public Growl(PokemonBattling user){
+		super(user);
 		name="GROWL";
 		pp=ppmax=40;
 	}

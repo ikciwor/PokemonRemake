@@ -3,18 +3,45 @@ package Poke;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Gui extends Frame {
+import Moves.Tackle;
 
-	Battle battle = new Battle(this);
-	Player[] players = new Player[2];
+public class Gui extends Frame {
+	
+	
+	
+
+	Battle battle;
+	//Player[] players = new Player[2];
 	Player activePlayer;
 
+	private Player generatePlayer() {
+		Player player = new Player(null);
+		
+		PokemonSpieces podusia = new PokemonSpieces("Podusia");
+		podusia.baseAtk = 100;
+		podusia.baseDef = 100;
+		podusia.baseHp = 100;
+		podusia.baseSpatk = 100;
+		podusia.baseSpdef = 100;
+		podusia.baseSpd = 100;
+		podusia.type1 = Poke.Type.NORMAL;
+		podusia.type2 = Poke.Type.DRAGON;
+		
+		player.pokemonBattling = new PokemonBattling(podusia);
+		player.pokemonBattling.move[0] = new Tackle(player.pokemonBattling);
+		
+		return player;
+	}
+	
 	public Gui() {
-		players[0] = battle.players[0];
-		players[1] = battle.players[1];
-
-		// Debug debug = new Debug(battle);
+		enableGui(false);
 		genActionListeners();
+		
+		battle = new Battle(this, generatePlayer(), generatePlayer());
+		//players[0] = battle.players[0];
+		//players[1] = battle.players[1];
+		
+		Debug debug = new Debug(battle);
 	}
 
 	private void genActionListeners() {
@@ -26,41 +53,47 @@ public class Gui extends Frame {
 		switchPkmn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				enableMoves(false);
+				/*enableGui(false);
 
 				if (change.isVisible()) {
 					battle.choosePokemon(party[battle.getCurrentPlayer()]
 							.getSelectedIndex());
 				} else {
 					genChange();
-				}
+				}*/
 
 			}
 		});
 
 	}
 
-	private void addMoveButton(final int d) {
-		move[d].addActionListener(new ActionListener() {
+	private void addMoveButton(final int moveId) {
+		move[moveId].addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				enableMoves(false);
-
-				battle.chooseMove(battle.pok[battle.getCurrentPlayer()].move[d]);
+				enableGui(false);
+				battle.chooseMove(moveId);
 
 			}
 		});
 	}
 
-	private void enableMoves(boolean b) {
+	private void enableGui(boolean b) {
 		for (int i = 0; i < 4; ++i) {
-			move[i].setEnabled(b);
+			
+			if(!b){
+				move[i].setEnabled(false);
+			}else{
+				if(activePlayer.pokemonBattling.move[i]!=null)
+				{
+					move[i].setEnabled(true);
+				}
+			}
+
 		}
+		switchPkmn.setEnabled(b);
 	}
 
-	private void enableMoves(int a, boolean b) {
-		move[a].setEnabled(b);
-	}
 
 	public void waitForOrders(Player player) {
 		/*
@@ -70,7 +103,7 @@ public class Gui extends Frame {
 		activePlayer = player;
 		// [załadowanie interfejsu dla activePlayer (odpowiednie ataki itp.) -- użycie getterów z battle];
 		// [odblokowanie interfejsu (uaktywnienie przyciskówi itp.)];
-		enableMoves(true);
+		enableGui(true);
 	}
 
 }

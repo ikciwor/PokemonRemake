@@ -31,6 +31,7 @@ public class Game extends JPanel{
 		});
 		setFocusable(true);
 	}
+	
 
 	
 	
@@ -39,6 +40,7 @@ public class Game extends JPanel{
 			@Override
 			public void run() {
 				Gui gui = new Gui();
+//				FrameBuilt b = new FrameBuilt();
 
 			}
 		});

@@ -5,8 +5,8 @@ import Poke.Type;
 
 public class Tackle extends Move{
 
-	public Tackle()
-		{
+	public Tackle(PokemonBattling user){
+		super(user);
 		pow=35;
 		acc=100;
 		type=Type.NORMAL;

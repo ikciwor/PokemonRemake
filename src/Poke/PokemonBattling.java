@@ -1,6 +1,5 @@
 package Poke;
 
-import Moves.Move;
 
 public class PokemonBattling extends Pokemon{
 	
@@ -28,7 +27,9 @@ public class PokemonBattling extends Pokemon{
 	private boolean badlyPoisoned=false;
 
 
-	
+	public PokemonBattling(PokemonSpieces spieces) {
+		super(spieces);
+	}
 	
 	
 	double stat(int m) //m_staty - zmienione w trakcie walki
