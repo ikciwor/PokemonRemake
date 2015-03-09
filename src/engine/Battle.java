@@ -1,17 +1,17 @@
-package Poke;
+package engine;
 
 import java.awt.EventQueue;
 import java.util.Random;
 
 import javax.swing.JOptionPane;
 
-import Moves.Move;
+import framework.Gui;
 
 public class Battle {
 
 	Random rand = new Random();
 
-	Player[] players = new Player[2];
+	public Player[] players = new Player[2];
 
 	public PokemonBattling[] pok = new PokemonBattling[2];
 
@@ -97,7 +97,6 @@ public class Battle {
 			public void run() {
 
 				int[] order = turnOrder();
-				JOptionPane.showMessageDialog(gui, "Bitwaaaa na poduszki");
 				doAction(players[order[0]]);
 				doAction(players[order[1]]);
 				
@@ -111,13 +110,13 @@ public class Battle {
 
 	private void doAction(Player player) {
 		int n = (player == players[0]) ? 0 : 1;
-		switch (player.getActionType()) {
-		case SWITCH:
+		if (player.getActionType() == Action.Type.SWITCH) {
 			switchPokemon(player);
-			break;
-		case MOVE:
+		}
+		else if (player.getActionType() == Action.Type.MOVE) {
 			player.getActionMove().doMove(pok[1-(n % 2)]);
 		}
+
 	}
 
 	private int[] turnOrder() {

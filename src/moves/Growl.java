@@ -1,6 +1,6 @@
-package Moves;
+package moves;
 
-import Poke.PokemonBattling;
+import engine.PokemonBattling;
 
 public class Growl extends Move{
 	

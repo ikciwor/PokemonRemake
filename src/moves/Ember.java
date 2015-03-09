@@ -1,8 +1,8 @@
-package Moves;
+package moves;
 
-import Poke.PokemonBattling;
-import Poke.Status;
-import Poke.Type;
+import engine.PokemonBattling;
+import engine.Status;
+import engine.Type;
 
 public class Ember extends Move{
 	

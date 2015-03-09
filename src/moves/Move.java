@@ -1,8 +1,11 @@
-package Moves;
+package moves;
 
 import java.util.Random;
 
-import Poke.*;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
+import engine.*;
 
 
 public abstract class Move{
@@ -13,7 +16,7 @@ public abstract class Move{
 	TypeChart tab = new TypeChart ();
 	
 	
-	public String name = new String("DEFAULT");
+	public String name = new String("???");
 	
 	public int pow=0, acc=100;
 	public Type type=Type.NORMAL;
@@ -40,6 +43,8 @@ public abstract class Move{
 		double loss=( (2*user.level+10 )/255 * cAtk/cDef * pow * ((special)? user.resultSpatk()/target.resultSpdef() : user.resultAtk()/target.resultDef() ) +2) * mod; //level, staty, moc, m_staty, mod
 		
 		target.hp=(loss>=target.hp)? 0 : target.hp-(int)loss;
+		
+		JOptionPane.showMessageDialog(new JFrame(), "DMG: " + loss + " lub int " + (int)loss);
 	}
 	
 	boolean critical()
@@ -47,10 +52,8 @@ public abstract class Move{
 		return critRatio*user.spd/512>=rand.nextInt(100);
 	}
 	
-	public void doMove(PokemonBattling target)
-	{
+	abstract public void doMove(PokemonBattling target);
 
-	}
 
 	public int getPriority() {
 		return priority;

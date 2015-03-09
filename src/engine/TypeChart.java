@@ -1,10 +1,10 @@
-package Poke;
-
-import Poke.Type;
+package engine;
+import engine.Type;
 
 public class TypeChart {
 	
-	/* 0 - Normal
+	/* null - Null
+	 * 0 - Normal
 	 * 1 - Fight
 	 * 2 - Fly
 	 * 3 - Poison
@@ -26,7 +26,7 @@ public class TypeChart {
 	
 	public double factor(Type type1, Type type2)
 	{
-		return t[type1.getId()][type2.getId()];
+		return (type2==null)? 1 : t[type1.getId()][type2.getId()];
 	}
 	
 	public static final double t[][] = new double[18][18];

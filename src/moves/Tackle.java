@@ -1,7 +1,7 @@
-package Moves;
+package moves;
 
-import Poke.PokemonBattling;
-import Poke.Type;
+import engine.PokemonBattling;
+import engine.Type;
 
 public class Tackle extends Move{
 

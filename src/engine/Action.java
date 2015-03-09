@@ -1,6 +1,6 @@
-package Poke;
+package engine;
 
-import Moves.Move;
+import moves.Move;
 
 public class Action {
 	

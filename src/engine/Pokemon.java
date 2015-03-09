@@ -1,8 +1,8 @@
-package Poke;
+package engine;
 
 import java.util.Random;
 
-import Moves.Move;
+import moves.Move;
 
 public class Pokemon {
 
@@ -22,7 +22,7 @@ public class Pokemon {
 	
 	private int badPoison=0;
 
-	Move[] move = new Move[4];
+	public Move[] move = new Move[4];
 
 	public void recover(int rec) {
 		hp = (rec + hp >= maxhp) ? maxhp : rec + hp;

@@ -1,12 +1,12 @@
-package Poke;
+package engine;
 
-import Moves.Move;
-import Poke.Action.Type;
+import moves.Move;
+import engine.Action.Type;
 
 public class Player {
 	
 //	Pokemon[] pokemon = new Pokemon[6];
-	PokemonBattling pokemonBattling;
+	public PokemonBattling pokemonBattling;
 	Pokemon[] pokemon = new Pokemon[5];
 	
 	private Action action;

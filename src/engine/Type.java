@@ -1,4 +1,4 @@
-package Poke;
+package engine;
 
 public enum Type {
 	
