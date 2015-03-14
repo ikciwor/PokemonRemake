@@ -65,7 +65,7 @@ public class FrameBuilt implements FrameInterface {
 		frame.getContentPane().add(infoLabel);
 		infoLabel.setBackground(Color.LIGHT_GRAY);
 
-		JPanel statPanel1 = new JPanel();
+		statPanel1 = new JPanel();
 		statPanel1.setBounds(184, 155, 190, 72);
 		frame.getContentPane().add(statPanel1);
 		statPanel1.setLayout(null);
@@ -93,7 +93,7 @@ public class FrameBuilt implements FrameInterface {
 		levelBar.setBounds(10, 52, 164, 9);
 		statPanel1.add(levelBar);
 
-		JPanel statPanel2 = new JPanel();
+		statPanel2 = new JPanel();
 		statPanel2.setLayout(null);
 		statPanel2.setBounds(10, 10, 190, 58);
 		frame.getContentPane().add(statPanel2);
@@ -112,7 +112,7 @@ public class FrameBuilt implements FrameInterface {
 		hpBar2.setBounds(10, 37, 114, 9);
 		statPanel2.add(hpBar2);
 
-		JPanel buttonPanel = new JPanel();
+		buttonPanel = new JPanel();
 		buttonPanel.setBounds(10, 238, 364, 72);
 		frame.getContentPane().add(buttonPanel);
 		buttonPanel.setLayout(null);
@@ -255,7 +255,7 @@ public class FrameBuilt implements FrameInterface {
 
 	@Override
 	public JLabel getLevelLabel2() {
-		return null;
+		return levelLabel2;
 	}
 
 	@Override

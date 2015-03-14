@@ -68,13 +68,12 @@ public class Gui{
 		importComponents();
 
 		enableGui(false);
-		updateStrings(1);
 		genActionListeners();
 		
 		battle = new Battle(this, generatePlayer(), generatePlayer());
 		//players[0] = battle.players[0];
 		//players[1] = battle.players[1];
-		
+		updateStrings(1);
 		Debug debug = new Debug(battle);
 	}
 
@@ -173,7 +172,10 @@ public class Gui{
 	{
 		for (int i=0; i<4; ++i)
 		{
-			moveButton[i].setText(battle.pok[k].move[i].name);
+			try{
+				moveButton[i].setText(battle.pok[k].move[i].name);
+			}catch(NullPointerException e){}
+
 		}
 		hpLabel.setText("HP: "+battle.pok[k].hp + "/"+battle.pok[k].maxhp);
 		levelLabel1.setText("LVL: "+battle.pok[k].level);
