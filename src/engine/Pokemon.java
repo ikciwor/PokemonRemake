@@ -19,18 +19,11 @@ public class Pokemon {
 	public int maxhp, def, atk, spdef, spatk, spd;
 	public Status status=Status.NONE;
 	public int hp;
+	String name = new String();
 	
 	private int badPoison=0;
 
 	public Move[] move = new Move[4];
-
-	public void recover(int rec) {
-		hp = (rec + hp >= maxhp) ? maxhp : rec + hp;
-	}
-	
-	public void damage(int dmg) {
-		hp = (hp - dmg > 0) ? hp - dmg : 0;
-	}
 
 	public Pokemon(PokemonSpieces spieces) {
 		
@@ -49,11 +42,10 @@ public class Pokemon {
 		hp=maxhp;
 	}
 	
-	public boolean isFainted()
-	{
-		return hp<=0;
+	public void damage(int dmg) {
+		hp = (hp - dmg > 0) ? hp - dmg : 0;
 	}
-	
+
 	public void doPoison()
 	{
 		if(badPoison==0)
@@ -67,6 +59,19 @@ public class Pokemon {
 			
 	}
 	
+	public boolean isFainted()
+	{
+		return hp<=0;
+	}
+	
+	public void recover(int rec) {
+		hp = (rec + hp >= maxhp) ? maxhp : rec + hp;
+	}
+	
+	public String getName()
+	{
+		return (name==null)? spieces.name : name;
+	}
 	
 	
 }
