@@ -72,25 +72,25 @@ public class FrameBuilt implements FrameInterface {
 
 		nameLabel1 = new JLabel("Name");
 		nameLabel1.setFont(new Font("Dialog", Font.PLAIN, 10));
-		nameLabel1.setBounds(10, 10, 114, 21);
+		nameLabel1.setBounds(10, 10, 100, 21);
 		statPanel1.add(nameLabel1);
 
 		levelLabel1 = new JLabel("lvl: ");
 		levelLabel1.setFont(new Font("Dialog", Font.PLAIN, 10));
-		levelLabel1.setBounds(134, 9, 46, 23);
+		levelLabel1.setBounds(108, 10, 72, 14);
 		statPanel1.add(levelLabel1);
 
 		hpBar1 = new JLabel("hp");
-		hpBar1.setBounds(10, 37, 114, 9);
+		hpBar1.setBounds(10, 37, 168, 9);
 		statPanel1.add(hpBar1);
 
 		hpLabel = new JLabel("HP: ");
 		hpLabel.setFont(new Font("Dialog", Font.PLAIN, 10));
-		hpLabel.setBounds(134, 34, 46, 14);
+		hpLabel.setBounds(108, 24, 72, 14);
 		statPanel1.add(hpLabel);
 
 		levelBar = new JLabel("lvl");
-		levelBar.setBounds(10, 52, 164, 9);
+		levelBar.setBounds(10, 52, 170, 9);
 		statPanel1.add(levelBar);
 
 		statPanel2 = new JPanel();
@@ -109,7 +109,7 @@ public class FrameBuilt implements FrameInterface {
 		statPanel2.add(levelLabel2);
 
 		hpBar2 = new JLabel("hp");
-		hpBar2.setBounds(10, 37, 114, 9);
+		hpBar2.setBounds(10, 37, 168, 9);
 		statPanel2.add(hpBar2);
 
 		buttonPanel = new JPanel();

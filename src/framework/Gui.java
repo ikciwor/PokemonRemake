@@ -2,6 +2,7 @@ package framework;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -19,15 +20,10 @@ import engine.Type;
 public class Gui{
 	
 	
-	JButton[] moveButton=new JButton[4];
-	JButton switchButton;
-	JButton bagButton;
-	JButton runButton;
-	
-	FrameInterface frame = new FrameBuilt();
-	Battle battle;
-	//Player[] players = new Player[2];
-	Player activePlayer;
+	private JButton[] moveButton=new JButton[4];
+	private JButton switchButton;
+	private JButton bagButton;
+	private JButton runButton;
 	private JLabel hpBar1;
 	private JLabel hpBar2;
 	private JLabel levelBar;
@@ -42,11 +38,16 @@ public class Gui{
 	private JPanel buttonPanel;
 	private JPanel statPanel1;
 	private JPanel statPanel2;
+	
+	FrameInterface frame = new FrameBuilt();
+	Battle battle;
+	Player activePlayer;
+
 
 	private Player generatePlayer() {
 		Player player = new Player(null);
 		
-		PokemonSpieces podusia = new PokemonSpieces("Podusia");
+		PokemonSpieces podusia = new PokemonSpieces("PODUSIA");
 		podusia.baseAtk = 100;
 		podusia.baseDef = 100;
 		podusia.baseHp = 100;
@@ -70,11 +71,9 @@ public class Gui{
 		enableGui(false);
 		genActionListeners();
 		
-		battle = new Battle(this, generatePlayer(), generatePlayer());
-		//players[0] = battle.players[0];
-		//players[1] = battle.players[1];
+		this.battle = new Battle(this, generatePlayer(), generatePlayer());
 		updateStrings(1);
-		Debug debug = new Debug(battle);
+//		Debug debug = new Debug(battle);
 	}
 
 	private void genActionListeners() {
@@ -86,14 +85,6 @@ public class Gui{
 		switchButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				/*enableGui(false);
-
-				if (change.isVisible()) {
-					battle.choosePokemon(party[battle.getCurrentPlayer()]
-							.getSelectedIndex());
-				} else {
-					genChange();
-				}*/
 
 			}
 		});
@@ -139,6 +130,9 @@ public class Gui{
 		// [załadowanie interfejsu dla activePlayer (odpowiednie ataki itp.) -- użycie getterów z battle];
 		// [odblokowanie interfejsu (uaktywnienie przyciskówi itp.)];
 		enableGui(true);
+		try{ //TODO: Wywalić try i rozwiązać NPE
+			updateStrings((player == battle.players[1])? 1 : 0);
+		}catch(NullPointerException e){sprite2.setText("NPE: "+ new Random().nextInt(10));}
 	}
 	
 	private void importComponents(){
@@ -168,20 +162,20 @@ public class Gui{
 		statPanel2 = frame.getStatPanel2();
 	}
 	
-	private void updateStrings(int k)
+	public void updateStrings(int k)
 	{
 		for (int i=0; i<4; ++i)
 		{
 			try{
 				moveButton[i].setText(battle.pok[k].move[i].name);
-			}catch(NullPointerException e){}
+			}catch(NullPointerException e){moveButton[i].setText("-");}
 
 		}
 		hpLabel.setText("HP: "+battle.pok[k].hp + "/"+battle.pok[k].maxhp);
 		levelLabel1.setText("LVL: "+battle.pok[k].level);
 		levelLabel2.setText("LVL: "+battle.pok[(1+k)%2].level);
-		nameLabel1.setText("LVL: "+battle.pok[k].getName());
-		nameLabel2.setText("LVL: "+battle.pok[(1+k)%2].getName());
+		nameLabel1.setText(""+battle.pok[k].getName());
+		nameLabel2.setText(""+battle.pok[(1+k)%2].getName());
 	}
 
 }

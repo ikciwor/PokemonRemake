@@ -19,7 +19,7 @@ public abstract class Move{
 	public String name = new String("???");
 	
 	public int pow=0, acc=100;
-	public Type type=Type.NORMAL;
+	public Type type;
 	public boolean special=false;
 	public int critRatio=1; //1 - normalne, speed/512
 	public boolean touch=false;
@@ -35,21 +35,24 @@ public abstract class Move{
 	
 	void damage(PokemonBattling target)
 	{
-		int cAtk=(special)? user.spatk : user.atk; //atak pokemona użyty do obliczeń
-		int cDef=(special)? target.spdef : target.def;
+		int cAtk=(special)? user.resultSpatk() : user.resultAtk(); //atak pokemona użyty do obliczeń
+		int cDef=(special)? target.resultSpdef() : target.resultDef();
+		int STAB=(user.spieces.type1==type) ? 2 : 1;
+		double typeMod = tab.factor(type, target.spieces.type1) * tab.factor(type, target.spieces.type2);
+		int level=user.level;
 		
-		double mod=tab.factor(type, target.spieces.type1) * (tab.factor(type, target.spieces.type2) * ((critical()) ? 2 : 1) * ((user.spieces.type1==type) ? 2 : 1)) * (rand.nextInt(15)/100+0.85); //rel. typów, STAB1STAB2, critical, random
+		double modifer=critical() * typeMod * STAB * (rand.nextInt(15)/100+0.85);
 		
-		double loss=( (2*user.level+10 )/255 * cAtk/cDef * pow * ((special)? user.resultSpatk()/target.resultSpdef() : user.resultAtk()/target.resultDef() ) +2) * mod; //level, staty, moc, m_staty, mod
+		double loss=(((2*level+10)*cAtk*pow)/(250*cDef)+2)*modifer;
 		
 		target.hp=(loss>=target.hp)? 0 : target.hp-(int)loss;
 		
 		JOptionPane.showMessageDialog(new JFrame(), "DMG: " + loss + " lub int " + (int)loss);
 	}
 	
-	boolean critical()
+	int critical()
 	{
-		return critRatio*user.spd/512>=rand.nextInt(100);
+		return (critRatio*user.spd/512>=rand.nextInt(100)) ? 2 : 1;
 	}
 	
 	abstract public void doMove(PokemonBattling target);

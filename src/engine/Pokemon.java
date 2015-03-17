@@ -19,7 +19,7 @@ public class Pokemon {
 	public int maxhp, def, atk, spdef, spatk, spd;
 	public Status status=Status.NONE;
 	public int hp;
-	String name = new String();
+	public String name = new String();
 	
 	private int badPoison=0;
 
@@ -70,7 +70,7 @@ public class Pokemon {
 	
 	public String getName()
 	{
-		return (name==null)? spieces.name : name;
+		return (name.length()<1)? spieces.name : name;
 	}
 	
 	
