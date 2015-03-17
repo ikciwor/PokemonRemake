@@ -72,7 +72,8 @@ public class Gui{
 		genActionListeners();
 		
 		this.battle = new Battle(this, generatePlayer(), generatePlayer());
-		updateStrings(1);
+		this.battle.takeOrders();
+		
 //		Debug debug = new Debug(battle);
 	}
 
@@ -129,10 +130,8 @@ public class Gui{
 		activePlayer = player;
 		// [załadowanie interfejsu dla activePlayer (odpowiednie ataki itp.) -- użycie getterów z battle];
 		// [odblokowanie interfejsu (uaktywnienie przyciskówi itp.)];
+		updateStrings((player == battle.players[1])? 1 : 0);
 		enableGui(true);
-		try{ //TODO: Wywalić try i rozwiązać NPE
-			updateStrings((player == battle.players[1])? 1 : 0);
-		}catch(NullPointerException e){sprite2.setText("NPE: "+ new Random().nextInt(10));}
 	}
 	
 	private void importComponents(){

@@ -31,7 +31,6 @@ public class Battle {
 		pok[1] = players[1].pokemonBattling;
 		this.gui = gui;
 
-		takeOrders();
 
 	}
 
