@@ -1,5 +1,7 @@
 package framework;
 
+import game.Game;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.BorderLayout;
@@ -13,8 +15,6 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-import engine.Game;
 
 public abstract class Frame extends JFrame {
 	private static final long serialVersionUID = 345924759794811391L;
