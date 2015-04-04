@@ -30,7 +30,45 @@ public class PokemonBattling extends Pokemon{
 	public PokemonBattling(PokemonSpieces spieces) {
 		super(spieces);
 	}
+
 	
+	 public Pokemon turnIntoNotBattling()
+	 {
+		 Pokemon out=new Pokemon(spieces);
+		 
+		 out.atk=this.atk;
+		 out.def=this.def;
+		 out.hp=this.hp;
+		 out.spatk=this.spatk;
+		 out.spdef=this.spdef;
+		 out.spd=this.spd;
+		 out.maxhp=this.maxhp;
+		 
+		 out.ev_atk=this.ev_atk;
+		 out.ev_hp=this.ev_hp;
+		 out.ev_def=this.ev_def;
+		 out.ev_spdef=this.ev_spdef;
+		 out.ev_spatk=this.ev_spatk;
+		 out.ev_spd=this.ev_spd;
+		 
+		 out.level=this.level;
+		 out.status=this.status;
+		 out.name=this.name;
+		 
+		 out.move[0]=this.move[0];
+		 out.move[0]=this.move[1];
+		 out.move[0]=this.move[2];
+		 out.move[0]=this.move[3];
+		 
+		 out.iv_atk=this.iv_atk;
+		 out.iv_hp=this.iv_hp;
+		 out.iv_def=this.iv_def;
+		 out.iv_spdef=this.iv_spdef;
+		 out.iv_spatk=this.iv_spatk;
+		 out.iv_spd=this.iv_spd;
+				 	 
+		 return out;
+	 }
 	
 	double stat(int m) //m_staty - zmienione w trakcie walki
 	{

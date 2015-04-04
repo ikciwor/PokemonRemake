@@ -7,8 +7,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.Font;
 
-public class FrameBuilt implements FrameInterface {
-	private JFrame frame;
+public class BattleFrame implements FrameInterface {
+	private JFrame battleFrame;
 	private JButton moveButton0;
 	private JButton moveButton1;
 	private JButton moveButton2;
@@ -38,36 +38,36 @@ public class FrameBuilt implements FrameInterface {
 	/**
 	 * Create the application.
 	 */
-	public FrameBuilt() {
+	public BattleFrame() {
 		initialize();
-		frame.setVisible(true);
+		battleFrame.setVisible(true);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.getContentPane().setBackground(Color.WHITE);
-		frame.getContentPane().setLayout(null);
+		battleFrame = new JFrame();
+		battleFrame.getContentPane().setBackground(Color.WHITE);
+		battleFrame.getContentPane().setLayout(null);
 
 		sprite1 = new JLabel("SPRITE");
 		sprite1.setBounds(10, 99, 128, 128);
-		frame.getContentPane().add(sprite1);
+		battleFrame.getContentPane().add(sprite1);
 
 		sprite2 = new JLabel("SPRITE");
 		sprite2.setBounds(246, 10, 128, 128);
-		frame.getContentPane().add(sprite2);
+		battleFrame.getContentPane().add(sprite2);
 
 		infoLabel = new JLabel("");
 		infoLabel.setFont(new Font("Dialog", Font.PLAIN, 10));
 		infoLabel.setBounds(0, 0, 0, 0);
-		frame.getContentPane().add(infoLabel);
+		battleFrame.getContentPane().add(infoLabel);
 		infoLabel.setBackground(Color.LIGHT_GRAY);
 
 		statPanel1 = new JPanel();
 		statPanel1.setBounds(184, 155, 190, 72);
-		frame.getContentPane().add(statPanel1);
+		battleFrame.getContentPane().add(statPanel1);
 		statPanel1.setLayout(null);
 
 		nameLabel1 = new JLabel("Name");
@@ -96,7 +96,7 @@ public class FrameBuilt implements FrameInterface {
 		statPanel2 = new JPanel();
 		statPanel2.setLayout(null);
 		statPanel2.setBounds(10, 10, 190, 58);
-		frame.getContentPane().add(statPanel2);
+		battleFrame.getContentPane().add(statPanel2);
 
 		nameLabel2 = new JLabel("Name");
 		nameLabel2.setFont(new Font("Dialog", Font.PLAIN, 10));
@@ -114,7 +114,7 @@ public class FrameBuilt implements FrameInterface {
 
 		buttonPanel = new JPanel();
 		buttonPanel.setBounds(10, 238, 364, 72);
-		frame.getContentPane().add(buttonPanel);
+		battleFrame.getContentPane().add(buttonPanel);
 		buttonPanel.setLayout(null);
 
 		moveButton3 = new JButton("");
@@ -165,9 +165,9 @@ public class FrameBuilt implements FrameInterface {
 		bagButton.setForeground(Color.BLACK);
 		bagButton.setBounds(241, 0, 62, 36);
 		buttonPanel.add(bagButton);
-		frame.setBackground(Color.LIGHT_GRAY);
-		frame.setBounds(100, 100, 400, 360);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		battleFrame.setBackground(Color.LIGHT_GRAY);
+		battleFrame.setBounds(100, 100, 400, 360);
+		battleFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 	@Override
@@ -278,6 +278,12 @@ public class FrameBuilt implements FrameInterface {
 
 	public JPanel getButtonPanel() {
 		return buttonPanel;
+	}
+
+	@Override
+	public void setVisible(boolean b) {
+		battleFrame.setVisible(b);
+		
 	}
 	
 	

@@ -7,7 +7,7 @@ public class Player {
 	
 //	Pokemon[] pokemon = new Pokemon[6];
 	public PokemonBattling pokemonBattling;
-	Pokemon[] pokemon = new Pokemon[5];
+	public Pokemon[] pokemon = new Pokemon[5];
 	
 	private Action action;
 	

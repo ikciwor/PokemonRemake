@@ -5,7 +5,8 @@ import java.util.Random;
 
 import javax.swing.JOptionPane;
 
-import framework.Gui;
+import framework.BattleGui;
+import framework.GuiInterface;
 
 public class Battle {
 
@@ -18,11 +19,11 @@ public class Battle {
 	private int[] idPokToSwitch = new int[2];
 	private int currentPlayer = -1;
 
-	Gui gui;
+	public GuiInterface gui;
 
 	public Weather weather;
 
-	public Battle(Gui gui, Player player0, Player player1) {
+	public Battle(BattleGui gui, Player player0, Player player1) {
 		
 		players[0]=player0;
 		players[1]=player1;
@@ -37,7 +38,7 @@ public class Battle {
 
 	public void choosePokemon(int id) {
 		players[getCurrentPlayer()].setAction(id);
-		
+		takeOrders();
 	}
 
 	public void chooseMove(int moveId) {
@@ -152,11 +153,11 @@ public class Battle {
 	private void switchPokemon(Player player) {
 		int id = player.getActionIdToSwitch();
 
-//		Pokemon swapPokemon = new Pokemon();
-//		swapPokemon = player.pokemon[0];
-//		player.pokemon[0] = player.pokemon[id];
+		Pokemon swapPokemon;
+		swapPokemon = player.pokemon[id];
+		player.pokemon[id] = player.pokemonBattling.turnIntoNotBattling();
 //		player.pokemon[id] = swapPokemon;
-//		player.pokemonBattling = (PokemonBattling) player.pokemon[0];
+		player.pokemonBattling = swapPokemon.turnIntoBattling();
 	}
 
 	private void loadPokemon() {
@@ -165,6 +166,11 @@ public class Battle {
 
 	public int getCurrentPlayer() {
 		return currentPlayer;
+	}
+	
+	public void endBattle(Player winner)
+	{
+		
 	}
 
 }

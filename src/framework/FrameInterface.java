@@ -30,5 +30,7 @@ public interface FrameInterface {
 	public JPanel getStatPanel1();
 	public JPanel getStatPanel2();
 	public JPanel getButtonPanel();
+	
+	public void setVisible(boolean b);
 
 }

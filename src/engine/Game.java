@@ -5,7 +5,7 @@ import java.awt.event.KeyListener;
 
 import javax.swing.JPanel;
 
-import framework.Gui;
+import framework.BattleGui;
 @SuppressWarnings("serial")
 
 
@@ -39,7 +39,7 @@ public class Game extends JPanel{
 		EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				Gui gui = new Gui();
+				BattleGui gui = new BattleGui();
 //				FrameBuilt b = new FrameBuilt();
 
 			}

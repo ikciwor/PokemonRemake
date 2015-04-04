@@ -8,16 +8,16 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import moves.Absorb;
-import moves.Tackle;
+import moves.*;
 import engine.Battle;
 import engine.Debug;
 import engine.Player;
+import engine.Pokemon;
 import engine.PokemonBattling;
 import engine.PokemonSpieces;
 import engine.Type;
 
-public class Gui{
+public class BattleGui implements GuiInterface{
 	
 	
 	private JButton[] moveButton=new JButton[4];
@@ -39,7 +39,8 @@ public class Gui{
 	private JPanel statPanel1;
 	private JPanel statPanel2;
 	
-	FrameInterface frame = new FrameBuilt();
+	public SwitchFrame switchFrame;
+	FrameInterface frame = new BattleFrame();
 	Battle battle;
 	Player activePlayer;
 
@@ -57,14 +58,27 @@ public class Gui{
 		podusia.type1 = engine.Type.NORMAL;
 		podusia.type2 = engine.Type.DRAGON;
 		
+		PokemonSpieces konik = new PokemonSpieces("KONIK");
+		konik.baseAtk = 10;
+		konik.baseDef = 10;
+		konik.baseHp = 10;
+		konik.baseSpatk = 10;
+		konik.baseSpdef = 10;
+		konik.baseSpd = 10;
+		konik.type1 = engine.Type.ELECTRIC;
+		konik.type2 = engine.Type.DRAGON;
+		
 		player.pokemonBattling = new PokemonBattling(podusia);
 		player.pokemonBattling.move[0] = new Tackle(player.pokemonBattling);
 		player.pokemonBattling.move[1] = new Absorb(player.pokemonBattling);
 		
+		player.pokemon[0]=new Pokemon(konik);
+		player.pokemon[0].move[0] = new Growl(player.pokemonBattling);
+		
 		return player;
 	}
 	
-	public Gui() {
+	public BattleGui() {
 		
 		importComponents();
 
@@ -73,7 +87,8 @@ public class Gui{
 		
 		this.battle = new Battle(this, generatePlayer(), generatePlayer());
 		updateStrings(1);
-//		Debug debug = new Debug(battle);
+		Debug debug = new Debug(battle);
+		switchFrame=new SwitchFrame(battle, frame);
 	}
 
 	private void genActionListeners() {
@@ -84,10 +99,15 @@ public class Gui{
 
 		switchButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				
+				frame.setVisible(false);
+				switchFrame.setVisible(true);
+				switchFrame.loadPartyForPlayer(activePlayer);
+				switchFrame.loadStats(0);
 
 			}
 		});
+		
 
 	}
 
@@ -101,6 +121,11 @@ public class Gui{
 			}
 		});
 	}
+	public void orderSwitchPkmn(int id)
+	{
+		//ta metoda znajduje się w switchframe
+	}
+
 
 	private void enableGui(boolean b) {
 		
