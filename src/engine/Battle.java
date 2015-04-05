@@ -3,6 +3,8 @@ package engine;
 import java.awt.EventQueue;
 import java.util.Random;
 
+import javax.swing.JOptionPane;
+
 import framework.Gui;
 
 public class Battle {
@@ -29,6 +31,7 @@ public class Battle {
 		pok[1] = players[1].pokemonBattling;
 		this.gui = gui;
 
+		takeOrders();
 
 	}
 
