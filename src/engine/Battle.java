@@ -31,9 +31,6 @@ public class Battle {
 		pok[0] = players[0].pokemonBattling;
 		pok[1] = players[1].pokemonBattling;
 		this.gui = gui;
-
-		takeOrders();
-
 	}
 
 	public void choosePokemon(int id) {

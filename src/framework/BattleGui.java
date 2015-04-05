@@ -2,20 +2,20 @@ package framework;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Random;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import moves.*;
+import moves.Absorb;
+import moves.Growl;
+import moves.Tackle;
 import engine.Battle;
 import engine.Debug;
 import engine.Player;
 import engine.Pokemon;
 import engine.PokemonBattling;
 import engine.PokemonSpieces;
-import engine.Type;
 
 public class BattleGui implements GuiInterface{
 	
@@ -86,7 +86,8 @@ public class BattleGui implements GuiInterface{
 		genActionListeners();
 		
 		this.battle = new Battle(this, generatePlayer(), generatePlayer());
-		updateStrings(1);
+		this.battle.takeOrders();
+
 		Debug debug = new Debug(battle);
 		switchFrame=new SwitchFrame(battle, frame);
 	}
@@ -154,10 +155,8 @@ public class BattleGui implements GuiInterface{
 		activePlayer = player;
 		// [załadowanie interfejsu dla activePlayer (odpowiednie ataki itp.) -- użycie getterów z battle];
 		// [odblokowanie interfejsu (uaktywnienie przyciskówi itp.)];
+		updateStrings((player == battle.players[1])? 1 : 0);
 		enableGui(true);
-		try{ //TODO: Wywalić try i rozwiązać NPE
-			updateStrings((player == battle.players[1])? 1 : 0);
-		}catch(NullPointerException e){sprite2.setText("NPE: "+ new Random().nextInt(10));}
 	}
 	
 	private void importComponents(){
