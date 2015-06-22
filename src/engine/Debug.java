@@ -62,11 +62,11 @@ public class Debug extends JFrame{
 //						{
 							int mh0, h0, mh1, h1;
 							try{
-								mh0=battle.pok[0].maxhp;
-								h0=battle.pok[0].hp;
+								mh0=battle.pok[0].getPokemon().maxhp;
+								h0=battle.pok[0].getPokemon().hp;
 								Hp0.setText("Hp: " + h0 + "/" + mh0);
-								mh1=battle.pok[1].maxhp;
-								h1=battle.pok[1].hp;
+								mh1=battle.pok[1].getPokemon().maxhp;
+								h1=battle.pok[1].getPokemon().hp;
 								Hp1.setText("Hp: " + h1 + "/" + mh1);
 								
 								currentPlayer.setText("Player: " + battle.getCurrentPlayer());
@@ -91,6 +91,64 @@ public class Debug extends JFrame{
 
 			}
 		});
+		 Thread thread = new Thread(){
+			    public void run(){
+			    	int randv=0;
+			    	while(true)
+						{
+							int mh0, h0, mh1, h1;
+							try{
+								mh0=battle.pok[0].getPokemon().maxhp;
+								h0=battle.pok[0].getPokemon().hp;
+								Hp0.setText("Hp: " + h0 + "/" + mh0);
+								mh1=battle.pok[1].getPokemon().maxhp;
+								h1=battle.pok[1].getPokemon().hp;
+								Hp1.setText("Hp: " + h1 + "/" + mh1);
+								
+								currentPlayer.setText("Player: " + battle.getCurrentPlayer());
+								++randv;
+								randv%=8;
+								if (randv==0)
+									loadDefault.setText("Work: " + "--");
+								else if (randv==1)
+									loadDefault.setText("Work: " + "\\ ");
+								else if (randv==2)
+									loadDefault.setText("Work: " + "| ");
+								else if (randv==3)
+									loadDefault.setText("Work: " + "/ ");
+								else if (randv==4)
+									loadDefault.setText("Work: " + "--");
+								else if (randv==5)
+									loadDefault.setText("Work: " + "\\ ");	
+								else if (randv==6)
+									loadDefault.setText("Work: " + "| ");		
+								else if (randv==7)
+									loadDefault.setText("Work: " + "/ ");
+									
+								
+							} catch(NullPointerException e){
+								loadDefault.setText("NullPointerException");
+							}
+							try {
+								Thread.sleep(100);
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							
+//							try {
+//								JOptionPane.showMessageDialog(new JFrame(), "TROLOLO");
+//								Thread.sleep(5000);
+//							} catch (InterruptedException e) {
+//								// TODO Auto-generated catch block
+//								e.printStackTrace();
+//							}
+//							debug.repaint();
+						}
+			    }
+			  };
+
+			  thread.start();
 		
 //		round();
 		
@@ -114,11 +172,11 @@ void round() {
 			{
 				int mh0, h0, mh1, h1;
 				try{
-					mh0=battle.pok[0].maxhp;
-					h0=battle.pok[0].hp;
+					mh0=battle.pok[0].getPokemon().maxhp;
+					h0=battle.pok[0].getPokemon().hp;
 					Hp0.setText("Hp: " + h0 + "/" + mh0);
-					mh1=battle.pok[1].maxhp;
-					h1=battle.pok[1].hp;
+					mh1=battle.pok[1].getPokemon().maxhp;
+					h1=battle.pok[1].getPokemon().hp;
 					Hp1.setText("Hp: " + h1 + "/" + mh1);
 					
 					currentPlayer.setText("Player: " + battle.getCurrentPlayer());

@@ -39,7 +39,7 @@ public class Battle {
 	}
 
 	public void chooseMove(int moveId) {
-		players[getCurrentPlayer()].setAction(pok[currentPlayer].move[moveId]);
+		players[getCurrentPlayer()].setAction(pok[currentPlayer].getPokemon().move[moveId]);
 		takeOrders();
 	}
 	
@@ -114,7 +114,6 @@ public class Battle {
 		else if (player.getActionType() == Action.Type.MOVE) {
 			player.getActionMove().doMove(pok[1-(n % 2)]);
 		}
-
 	}
 
 	private int[] turnOrder() {
@@ -152,9 +151,9 @@ public class Battle {
 
 		Pokemon swapPokemon;
 		swapPokemon = player.pokemon[id];
-		player.pokemon[id] = player.pokemonBattling.turnIntoNotBattling();
+		player.pokemon[id] = player.pokemonBattling.getPokemon();
 //		player.pokemon[id] = swapPokemon;
-		player.pokemonBattling = swapPokemon.turnIntoBattling();
+		player.pokemonBattling = new PokemonBattling(swapPokemon);
 	}
 
 	private void loadPokemon() {

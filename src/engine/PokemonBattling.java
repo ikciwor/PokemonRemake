@@ -1,7 +1,7 @@
 package engine;
 
 
-public class PokemonBattling extends Pokemon{
+public class PokemonBattling {
 	
 
 	private int mDef=0, mAtk=0, mSpdef=0, mSpatk=0, mSpd=0;
@@ -25,50 +25,18 @@ public class PokemonBattling extends Pokemon{
 	private boolean encored=false;
 	
 	private boolean badlyPoisoned=false;
+	
+	private Pokemon pokemon;
 
 
-	public PokemonBattling(PokemonSpieces spieces) {
-		super(spieces);
+	public PokemonBattling(Pokemon p) {
+		pokemon=p;
 	}
 
-	
-	 public Pokemon turnIntoNotBattling()
-	 {
-		 Pokemon out=new Pokemon(spieces);
-		 
-		 out.atk=this.atk;
-		 out.def=this.def;
-		 out.hp=this.hp;
-		 out.spatk=this.spatk;
-		 out.spdef=this.spdef;
-		 out.spd=this.spd;
-		 out.maxhp=this.maxhp;
-		 
-		 out.ev_atk=this.ev_atk;
-		 out.ev_hp=this.ev_hp;
-		 out.ev_def=this.ev_def;
-		 out.ev_spdef=this.ev_spdef;
-		 out.ev_spatk=this.ev_spatk;
-		 out.ev_spd=this.ev_spd;
-		 
-		 out.level=this.level;
-		 out.status=this.status;
-		 out.name=this.name;
-		 
-		 out.move[0]=this.move[0];
-		 out.move[0]=this.move[1];
-		 out.move[0]=this.move[2];
-		 out.move[0]=this.move[3];
-		 
-		 out.iv_atk=this.iv_atk;
-		 out.iv_hp=this.iv_hp;
-		 out.iv_def=this.iv_def;
-		 out.iv_spdef=this.iv_spdef;
-		 out.iv_spatk=this.iv_spatk;
-		 out.iv_spd=this.iv_spd;
-				 	 
-		 return out;
-	 }
+	public Pokemon getPokemon(){
+		return pokemon;
+	}
+
 	
 	double stat(int m) //m_staty - zmienione w trakcie walki
 	{
@@ -77,27 +45,27 @@ public class PokemonBattling extends Pokemon{
 	
 	public int resultAtk()
 	{
-		return atk*(int)stat(mAtk);
+		return pokemon.atk*(int)stat(mAtk);
 	}
 	
 	public int resultSpatk()
 	{
-		return spatk*(int)stat(mSpatk);
+		return pokemon.spatk*(int)stat(mSpatk);
 	}
 	
 	public int resultDef()
 	{
-		return def*(int)stat(mDef);
+		return pokemon.def*(int)stat(mDef);
 	}
 	
 	public int resultSpdef()
 	{
-		return spdef*(int)stat(mSpdef);
+		return pokemon.spdef*(int)stat(mSpdef);
 	}
 	
 	public int resultSpd()
 	{
-		return spd*(int)stat(mSpd);
+		return pokemon.spd*(int)stat(mSpd);
 	}
 	
 	public boolean modifyMAtk(int n)

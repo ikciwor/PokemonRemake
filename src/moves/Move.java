@@ -37,22 +37,22 @@ public abstract class Move{
 	{
 		int cAtk=(special)? user.resultSpatk() : user.resultAtk(); //atak pokemona użyty do obliczeń
 		int cDef=(special)? target.resultSpdef() : target.resultDef();
-		int STAB=(user.spieces.type1==type) ? 2 : 1;
-		double typeMod = tab.factor(type, target.spieces.type1) * tab.factor(type, target.spieces.type2);
-		int level=user.level;
+		int STAB=(user.getPokemon().spieces.type1==type) ? 2 : 1;
+		double typeMod = tab.factor(type, target.getPokemon().spieces.type1) * tab.factor(type, target.getPokemon().spieces.type2);
+		int level=user.getPokemon().level;
 		
 		double modifer=critical() * typeMod * STAB * (rand.nextInt(15)/100+0.85);
 		
 		double loss=(((2*level+10)*cAtk*pow)/(250*cDef)+2)*modifer;
 		
-		target.hp=(loss>=target.hp)? 0 : target.hp-(int)loss;
+		target.getPokemon().hp=(loss>=target.getPokemon().hp)? 0 : target.getPokemon().hp-(int)loss;
 		
 		JOptionPane.showMessageDialog(new JFrame(), "DMG: " + loss + " lub int " + (int)loss);
 	}
 	
 	int critical()
 	{
-		return (critRatio*user.spd/512>=rand.nextInt(100)) ? 2 : 1;
+		return (critRatio*user.getPokemon().spd/512>=rand.nextInt(100)) ? 2 : 1;
 	}
 	
 	abstract public void doMove(PokemonBattling target);

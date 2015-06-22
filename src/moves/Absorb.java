@@ -18,11 +18,11 @@ public class Absorb extends Move {
 	}
 
 	public void doMove(PokemonBattling target) {
-		double lastdmg = target.hp; // strata hp, jednoczenie pamięta ile miał
+		double lastdmg = target.getPokemon().hp; // strata hp, jednoczenie pamięta ile miał
 									// hp przed atakiem
 		damage(target);
-		lastdmg = lastdmg - target.hp;
-		user.recover((int) lastdmg / 2);
+		lastdmg = lastdmg - target.getPokemon().hp;
+		user.getPokemon().recover((int) lastdmg / 2);
 	}
 
 }

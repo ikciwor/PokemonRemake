@@ -194,12 +194,11 @@ public class SwitchFrame extends JFrame {
 	}
 
 	public void loadPartyForPlayer(Player player) {
-		
-//		party = new JComboBox<String>();
+		party.removeAllItems();
 		party.setBounds(12, 12, 128, 24);
 		contentPane.add(party);
 
-		pokemons[0] = (player.pokemonBattling);
+		pokemons[0] = (player.pokemonBattling.getPokemon());
 		party.addItem(pokemons[0].getName());
 		
 		for (int i=0; i < 5; ++i) {

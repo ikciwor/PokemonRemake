@@ -68,9 +68,9 @@ public class BattleGui implements GuiInterface{
 		konik.type1 = engine.Type.ELECTRIC;
 		konik.type2 = engine.Type.DRAGON;
 		
-		player.pokemonBattling = new PokemonBattling(podusia);
-		player.pokemonBattling.move[0] = new Tackle(player.pokemonBattling);
-		player.pokemonBattling.move[1] = new Absorb(player.pokemonBattling);
+		player.pokemonBattling = new PokemonBattling(new Pokemon(podusia));
+		player.pokemonBattling.getPokemon().move[0] = new Tackle(player.pokemonBattling);
+		player.pokemonBattling.getPokemon().move[1] = new Absorb(player.pokemonBattling);
 		
 		player.pokemon[0]=new Pokemon(konik);
 		player.pokemon[0].move[0] = new Growl(player.pokemonBattling);
@@ -136,7 +136,7 @@ public class BattleGui implements GuiInterface{
 			if(!b){
 				moveButton[i].setEnabled(false);
 			}else{
-				if(activePlayer.pokemonBattling.move[i]!=null)
+				if(activePlayer.pokemonBattling.getPokemon().move[i]!=null)
 				{
 					moveButton[i].setEnabled(true);
 				}
@@ -191,15 +191,15 @@ public class BattleGui implements GuiInterface{
 		for (int i=0; i<4; ++i)
 		{
 			try{
-				moveButton[i].setText(battle.pok[k].move[i].name);
+				moveButton[i].setText(battle.pok[k].getPokemon().move[i].name);
 			}catch(NullPointerException e){moveButton[i].setText("-");}
 
 		}
-		hpLabel.setText("HP: "+battle.pok[k].hp + "/"+battle.pok[k].maxhp);
-		levelLabel1.setText("LVL: "+battle.pok[k].level);
-		levelLabel2.setText("LVL: "+battle.pok[(1+k)%2].level);
-		nameLabel1.setText(""+battle.pok[k].getName());
-		nameLabel2.setText(""+battle.pok[(1+k)%2].getName());
+		hpLabel.setText("HP: "+battle.pok[k].getPokemon().hp + "/"+battle.pok[k].getPokemon().maxhp);
+		levelLabel1.setText("LVL: "+battle.pok[k].getPokemon().level);
+		levelLabel2.setText("LVL: "+battle.pok[(1+k)%2].getPokemon().level);
+		nameLabel1.setText(""+battle.pok[k].getPokemon().getName());
+		nameLabel2.setText(""+battle.pok[(1+k)%2].getPokemon().getName());
 	}
 
 }

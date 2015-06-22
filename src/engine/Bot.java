@@ -19,7 +19,7 @@ public class Bot {
 	}
 
 	public void play() {
-		if (me.pokemonBattling.isFainted()) {
+		if (me.pokemonBattling.getPokemon().isFainted()) {
 
 		} else {
 			battle.chooseMove(rand.nextInt(4));

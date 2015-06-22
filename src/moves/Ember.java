@@ -21,7 +21,7 @@ public class Ember extends Move{
 	{
 		damage(target);
 		if(rand.nextInt(10)==0)
-			target.status=Status.BURN;
+			target.getPokemon().status=Status.BURN;
 	}
 
 }
